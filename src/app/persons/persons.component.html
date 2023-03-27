@@ -1,0 +1,69 @@
+<table class="table table-bordered table-striped">
+
+    <thead></thead>
+    <tbody>
+        <tr *ngFor="let person of persons" >
+            <td>{{person.firstName}}</td>
+            <td>{{person.lastName}}</td>
+            <td>{{person.dateOfBirth | date:'dd MM YYYY'}}</td>
+            <td>{{person.age}}</td>
+          <!-- <div class="zippy">
+            
+              <h2>{{ person.firstName }} {{ person.lastName }}</h2>
+              <p>Date of Birth: {{ person.dateOfBirth | date }}</p>
+              <p>Phone: {{ person.phone[0] }}</p>
+              <p>Email: {{ person.email }}</p>
+              <p>Gender: {{ person.gender }}</p>
+              <p>Address:</p>
+            
+              <ul *ngFor="let address of person.address">
+                <li>{{ address.street }}
+                {{ person.address[0].postCode }} {{ person.address[0].city }}
+                {{ person.address[0].country }}
+              </li>
+            </ul>
+            
+              <p>Cars:</p>
+              <ul>
+                <li *ngFor="let car of person.carsList">{{ car.model }} - {{ car.plateNumber }}</li>
+              </ul>
+            
+
+           </div>-->
+           <!--<td>
+               <a  class="btn btn-outline-warning" [routerLink]="['personUpdateForm',person.id]">Update</a>
+             </td>--> 
+             <!--<td >
+               <a  class="btn btn-outline-warning" [href]="'/personUpdateForm/' + person.id">Update</a>
+             </td> -->
+             <td >
+              <a  class="btn btn-outline-warning" [href]="'/personInfo/' + person.id">Info</a>
+            </td> 
+             
+        </tr>
+    </tbody>
+    <router-outlet></router-outlet>
+</table>
+
+
+
+<!--<ul>
+    <li *ngFor="let person of persons">
+      <h2>{{ person.firstName }} {{ person.lastName }}</h2>
+      <p>Date of Birth: {{ person.dateOfBirth | date }}</p>
+      <p>Phone: {{ person.phone[0] }}</p>
+      <p>Email: {{ person.email }}</p>
+      <p>Gender: {{ person.gender }}</p>
+      <p>Address:</p>
+      <ul>
+        <li>{{ person.address[0].street }}</li>
+        <li>{{ person.address[0].postCode }} </li>
+        <li>{{ person.address[0].city }}</li>
+        <li>{{ person.address[0].country }}</li>
+      </ul>
+      <p>Cars:</p>
+      <ul *ngFor="let car of person.carsList">
+        <li >{{ car.model }} - {{ car.plateNumber }}</li>
+      </ul>
+    </li>
+  </ul> -->
