@@ -1,34 +1,42 @@
 <div>
     <h2>Person Details</h2>
     <div>
-      <label>ID:</label>
+      <label>ID: </label>
       <span>{{person.id}}</span>
     </div>
     <div>
       <label>First Name:</label>
-      <span>{{person.firstName}}</span>
+      <span> {{person.firstName}}</span>
     </div>
     <div>
       <label>Last Name:</label>
-      <span>{{person.lastName}}</span>
+      <span> {{person.lastName}}</span>
     </div>
     <div>
       <label>Date of Birth:</label>
-      <span>{{person.dateOfBirth | date}}</span>
+      <span> {{person.dateOfBirth | date:'dd MM YYYY'}}</span>
     </div>
     <div>
-      <label>Phone:</label>
+      <label>Age:</label>
+      <span> {{person.age}}</span>
+    </div>
+    <div>
+      <label>Zodie:</label>
+      <span> {{person.zodiac}}</span>
+    </div>
+    <div>
+      <label>Phone: </label>
       <ul>
         <li *ngFor="let phone of person.phone">{{phone}}</li>
       </ul>
     </div>
     <div>
       <label>Email:</label>
-      <span>{{person.email}}</span>
+      <span> {{person.email}}</span>
     </div>
     <div>
       <label>Gender:</label>
-      <span>{{person.gender}}</span>
+      <span> {{person.gender}}</span>
     </div>
     <div>
       <label>Address:</label>
@@ -46,13 +54,10 @@
         </li>
       </ul>
     </div>
-    <div>
-      <label>Age:</label>
-      <span>{{person.age}}</span>
-    </div>
+    
     <div>
       <label>Comments:</label>
-      <span>{{person.comments}}</span>
+      <span> {{person.comments}}</span>
     </div>
     <td >
       <a  class="btn btn-outline-warning" [href]="'/personUpdateForm/' + person.id">Update</a>

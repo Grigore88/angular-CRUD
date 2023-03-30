@@ -11,6 +11,7 @@ export interface Person{
     address?: Address[];
     carsList?: Car[];
     age?: number;
+    zodiac?: string;
     comments?: string;
 
 
