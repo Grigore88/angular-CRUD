@@ -1,0 +1,32 @@
+<td >
+    <a  class="btn btn-outline-warning" [href]="'/docForm/'">Add Document</a>
+  </td> 
+<table class="table table-bordered table-striped">
+
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Number</th>
+        <th>Expiration Date</th>
+        <th>Days Until Expiry</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let doc of docs" >
+            <td>{{doc.docType}}</td>
+            <td>{{doc.docNumber}}</td>
+            <td>{{doc.expireDate | date:'dd MM YYYY'}}</td>
+            <td>{{doc.daysUntilExpire}}</td>
+          
+            
+            <td >
+              <a  class="btn btn-outline-warning" [href]="'/docUpdateForm/' + doc.id">Update</a>
+            </td> 
+            <td >
+              <button  class="btn btn-outline-danger" (click)="deleteDoc(doc.id)">Delete</button>
+            </td> 
+             
+        </tr>
+    </tbody>
+    <router-outlet></router-outlet>
+</table>

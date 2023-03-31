@@ -1,9 +1,7 @@
-<div class="container">
-<a   routerLink="/persons" class="btn btn-primary" >All Persons</a>
-<a   routerLink="personForm" class="btn btn-primary">Add Person</a>
-<a   [href]="'/hours/'" class="btn btn-primary">Hours Calculator</a>
-
-
-
+<nav class="nav">
+<a   routerLink="/persons" class="nav-link" aria-current="page" >All Persons</a>
+<a   routerLink="/docs" class="nav-link" aria-current="page">All Docs</a>
+<!-- <a   routerLink="personForm" class="btn btn-primary">Add Person</a> -->
+<a   [href]="'/hours/'" class="nav-link">Hours Calculator</a>
+</nav>
 <router-outlet></router-outlet>
-</div>

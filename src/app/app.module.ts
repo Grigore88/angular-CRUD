@@ -12,6 +12,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PersonUpdateFormComponent } from './person-update-form/person-update-form.component';
 import { HoursCalculatorComponent } from './hours-calculator/hours-calculator.component';
 import { PersonInfoComponent } from './person-info/person-info.component';
+import { DocPageComponent } from './docs/doc-page/doc-page.component';
+import { DocFormComponent } from './docs/doc-form/doc-form.component';
+import { DocUpdateFormComponent } from './docs/doc-update-form/doc-update-form.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { PersonInfoComponent } from './person-info/person-info.component';
     NavbarComponent,
     PersonUpdateFormComponent,
     HoursCalculatorComponent,
-    PersonInfoComponent
+    PersonInfoComponent,
+    DocPageComponent,
+    DocFormComponent,
+    DocUpdateFormComponent
 
 
   ],
@@ -36,7 +42,10 @@ import { PersonInfoComponent } from './person-info/person-info.component';
           {path: 'personForm', component: PersonFormComponent},
           {path : 'persons', component: PersonsComponent},
           {path: 'hours', component: HoursCalculatorComponent},
-          {path: 'personInfo/:id', component: PersonInfoComponent}
+          {path: 'personInfo/:id', component: PersonInfoComponent},
+          {path: 'docs', component: DocPageComponent},
+          {path: 'docForm', component: DocFormComponent},
+          {path: 'docUpdateForm/:id', component:DocUpdateFormComponent}
           ]}
        ]},
       ])

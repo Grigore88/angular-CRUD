@@ -1,0 +1,19 @@
+<div class="container">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="docType">Document Type</label>
+            <input type="text" id="docType" formControlName="docType" class="form-control">
+          </div>
+          <div>
+            <label for="docNumber">Document Number</label>
+            <input type="text" id="docNumber" formControlName="docNumber" class="form-control">
+          </div>
+          <div>
+            <label for="expireDate">Expiration Date</label>
+            <input type="date" id="expireDate" formControlName="expireDate" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-outline-warning" >Submit</button>
+        
+    </form>
+</div>
+<div>{{myForm.value | json}}</div>

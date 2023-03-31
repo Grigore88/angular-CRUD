@@ -91,6 +91,7 @@ export class PersonFormComponent {
     this.carsForms.removeAt(i);
   }
   onSubmit() {
+    // TODO: subscribe method 
     const person: Person = this.myForm.value;
     this.personService.savePerson(person).subscribe(
       response => {console.log(response);},

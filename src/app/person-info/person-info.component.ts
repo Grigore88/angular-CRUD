@@ -22,8 +22,7 @@ id:string;
       this.id = params.get('id');
       console.log(this.id);
       this.personService.getPersonById(this.id).subscribe({
-        next: c => { this.person= c
-        },
+        next: c => { this.person= c},
         error: error=>{console.log(error)},
         complete: ()=>{console.log( this.person)}
     
