@@ -1,6 +1,6 @@
 import { Car } from './../car';
 import { Address } from './../address';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Person } from './../person';
 import { PersonService } from './../services/person.service';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
@@ -18,7 +18,8 @@ export class PersonUpdateFormComponent {
 
   constructor(private fb: FormBuilder,
     private personService: PersonService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
   
@@ -161,9 +162,8 @@ export class PersonUpdateFormComponent {
     this.personService.updatePerson(person).subscribe({
       next: (value)=>{console.log(value)},
       error: (err)=>{console.log(err)},
-      complete:()=>{this.person=null}
-    }
-     
-      
-    );}
+      complete:()=>{this.person=null; this.router.navigate(['/personInfo/',person.id]);}
+    });
+    
+  }
 }

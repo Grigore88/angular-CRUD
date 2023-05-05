@@ -14,7 +14,7 @@ public docs:Doc[];
 
 ngOnInit(): void {
   this.getDocs();
-  console.log("lista: " + this.docs);
+  
 }
 
 public getDocs(){

@@ -2,6 +2,7 @@ import { Doc } from './../../Doc';
 import { DocServiceService } from './../../services/doc.service.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-doc-form',
@@ -12,7 +13,9 @@ export class DocFormComponent {
 
 myForm: FormGroup;
 
-constructor(private fb: FormBuilder, private docService: DocServiceService){}
+constructor(private fb: FormBuilder,
+   private docService: DocServiceService,
+   private router: Router){}
 
 ngOnInit(){
 this.myForm = new FormGroup({
@@ -26,7 +29,7 @@ onSubmit(){
   this.docService.saveDoc(doc).subscribe({
     next: c=>{console.log(c)},
     error: error=>{console.log(error)},
-    complete: ()=>{console.log(doc)}
+    complete: ()=>{this.router.navigate(['/docs/'])}
   })
 }
 

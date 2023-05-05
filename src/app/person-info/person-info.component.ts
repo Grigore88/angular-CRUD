@@ -20,7 +20,6 @@ id:string;
    
     this.route.paramMap.subscribe(params =>{
       this.id = params.get('id');
-      console.log(this.id);
       this.personService.getPersonById(this.id).subscribe({
         next: c => { this.person= c},
         error: error=>{console.log(error)},

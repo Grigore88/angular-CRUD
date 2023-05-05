@@ -4,6 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup ,FormBuilder,FormArray, FormControl,Validators} from '@angular/forms';
 import { Person } from '../person';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,9 @@ import { Person } from '../person';
 export class PersonFormComponent {
 
   myForm: FormGroup;
-  constructor(private fb: FormBuilder,private personService: PersonService ) { }
+  constructor(private fb: FormBuilder,
+    private personService: PersonService,
+    private router: Router ) { }
   ngOnInit() {
     this.myForm = new FormGroup({
       //id: new FormControl(''),
@@ -91,11 +94,14 @@ export class PersonFormComponent {
     this.carsForms.removeAt(i);
   }
   onSubmit() {
-    // TODO: subscribe method 
     const person: Person = this.myForm.value;
-    this.personService.savePerson(person).subscribe(
-      response => {console.log(response);},
-      error => console.error(error)
+     let createdPerson: Person;
+    this.personService.savePerson(person).subscribe({
+      next: (value)=>{createdPerson = value},
+      error: (err)=>{console.log(err)},
+      complete:()=>{this.router.navigate(['/personInfo/', createdPerson.id])}}
+      // response => {console.log(response);},
+      // error => console.error(error)
     );
     this.ngOnInit();
   }

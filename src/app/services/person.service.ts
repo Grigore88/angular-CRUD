@@ -16,6 +16,14 @@ export class PersonService {
   getAllPersons():Observable<Person[]>{
     return this.http.get<Person[]>(this.url);
   }
+  getPersonsByMonthOfBirth(month: number):Observable<Person[]>{
+    const url = `${this.url}/byMonth/${month}`;
+    return this.http.get<Person[]>(url);
+  }
+  getPersonsBySearch(searchText: string ):Observable<Person[]>{
+   const url = `${this.url}/search/${searchText}`;
+   return this.http.get<Person[]>(url);
+  }
   savePerson(person: Person): Observable<Person>{
     console.log(person);
     return this.http.post<Person>(this.url, person);

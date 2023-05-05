@@ -9,7 +9,9 @@ import { Component } from '@angular/core';
 })
 export class HoursCalculatorComponent {
   myForm: FormGroup;
+  pauseValue: number;
   constructor(private fb: FormBuilder){}
+  
   ngOnInit(){
     this.myForm = new FormGroup({
       day: new FormArray([
@@ -26,6 +28,7 @@ export class HoursCalculatorComponent {
       this.addDay()
     }
   }
+  
   get dayForm(){
    return this.myForm.get('day') as FormArray;
   }
@@ -70,5 +73,16 @@ export class HoursCalculatorComponent {
     return ` ${hours}:${minutes.toString().padStart(2, '0')}`;
   }
   
+  
+
+addAllPauses() {
+  const dayFormArray = this.myForm.get('day') as FormArray;
+  dayFormArray.controls.forEach(dayFormGroup => {
+    if(dayFormGroup.get('startHour').value){
+    dayFormGroup.get('pause').setValue(this.pauseValue);
+    }
+  });
+  //console.log(this.pauseValue);
+}
 
 }

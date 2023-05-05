@@ -35,6 +35,7 @@ import { DocUpdateFormComponent } from './docs/doc-update-form/doc-update-form.c
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot([
       {path: '', component: AppComponent, children:[
         {path: '', component: NavbarComponent, children:[

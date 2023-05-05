@@ -1,4 +1,17 @@
-<a   [href]="'/personForm/'" class="btn btn-outline-warning">Add Person</a>
+<nav class="nav">
+<a   [href]="'/personForm/'" class="btn btn-outline-warning mb-2" >Add Person</a>
+
+   <input  type="number" [(ngModel)]="monthValue"  min="1" max="12" class="input mb-2"  required>
+   <button  class="btn btn-secondary mb-2" (click)="getPersByMonthOfBirth()" >By birthday month</button>
+   
+   <input  type="text" [(ngModel)]="searchText"   class="input mb-2"  required>
+   <button  class="btn btn-secondary mb-2" (click)="getPersonsBySearchText()" >Search</button>
+   
+
+  <button  class="btn btn-outline-danger mb-2" (click)="clear()" >Clear</button>
+
+</nav>
+<span [textContent]="getUpdatedListTime()">  </span>
 <table class="table table-bordered table-striped">
 
     <thead></thead>
@@ -6,7 +19,7 @@
         <tr *ngFor="let person of persons" >
             <td>{{person.firstName}}</td>
             <td>{{person.lastName}}</td>
-            <td>{{person.dateOfBirth | date:'dd MM YYYY'}}</td>
+            <td>{{person.dateOfBirth | date:'dd-MM-YYYY'}}</td>
             <td>{{person.age}}</td>
           <!-- <div class="zippy">
             

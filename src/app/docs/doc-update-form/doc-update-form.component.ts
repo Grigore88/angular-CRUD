@@ -1,5 +1,5 @@
 import { Doc } from './../../Doc';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { DocServiceService } from './../../services/doc.service.service';
 import { Component } from '@angular/core';
@@ -16,7 +16,8 @@ export class DocUpdateFormComponent {
 
   constructor(private fb: FormBuilder,
     private docService: DocServiceService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
     ngOnInit(){
       this.myForm = new FormGroup({
@@ -43,6 +44,6 @@ export class DocUpdateFormComponent {
         this.docService.updateDoc(doc).subscribe({
           next: (value)=>{console.log(value)},
           error: (err)=>{console.log(err)},
-          complete:()=>{this.doc=null}
+          complete:()=>{this.doc=null; this.router.navigate(['/docs/'])}
         })}
 }
