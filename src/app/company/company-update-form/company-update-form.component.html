@@ -1,0 +1,72 @@
+<div class="container">
+    <form [formGroup]="companyForm" (ngSubmit)="onSubmit()" >
+        <div class="form-group">
+          <label>Name</label>
+          <input formControlName="name" class="form-control" />
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Street</label>
+                <input formControlName="street" class="form-control" />
+            </div>
+            <div class="col">
+                <label>Street Number</label>
+                <input formControlName="streetNumber" class="form-control" />
+            </div>
+            <div class="col">
+                <label>City</label>
+                <input formControlName="city" class="form-control" />
+            </div>
+            <div class="col">
+                <label>Post Code</label>
+                <input formControlName="postCode" class="form-control" />
+            </div>
+       </div>
+       
+        <div class="form-group">
+            <br>
+            <div formArrayName="contacts">
+              <div *ngFor="let contact of contactsFormArray.controls; let i=index" class="row">
+               
+                <div class="col">
+                  <label>Contact {{i + 1}}</label>
+                </div>
+                <div class="col">
+                  <input [formControlName]="i" class="form-control" />
+                </div>
+                <div class="col">
+                <button (click)="removeContact(i)" class="btn btn-outline-danger">Remove</button>
+                </div>
+              </div>
+            </div>
+            <button (click)="addContact()" class="btn btn-primary">Add Contact</button>
+        </div>
+    
+     <div formArrayName="workers">
+        <div *ngFor="let worker of workers.controls; let i=index" class="row">
+          <div class="col">
+          <label>Worker {{i + 1}}</label>
+        </div>
+          <div class="col">
+          <input [formControlName]="i" class="form-control">
+        </div>
+        <div class="col"> 
+          <button type="button" (click)="removeWorker(i)" class="btn btn-outline-danger">Remove</button>
+        </div>
+       </div>
+       <button type="button" (click)="addWorker()" class="btn btn-primary">Add Worker</button>
+       </div>
+    
+        <div class="form-group">
+          <label>Open Hours</label>
+          <input formControlName="openHours" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Comments</label>
+          <textarea formControlName="comments" class="form-control"></textarea>
+        </div>
+        
+        <button type="submit" >Submit</button>
+      </form>
+    </div>
+      <div>{{companyForm.value | json}}</div>

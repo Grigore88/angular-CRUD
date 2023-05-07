@@ -1,0 +1,32 @@
+<!-- company-info.component.html -->
+<div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-header">
+            <h3>{{ company.name }}</h3>
+          </div>
+          <div class="card-body">
+            <p>{{ company.street }} {{ company.streetNumber }}. {{ company.postCode }}, {{ company.city }}</p>
+            <p>Open Hours: {{ company.openHours }}</p>
+            <hr>
+            <h4>Contacts:</h4>
+            <ul>
+              <li *ngFor="let contact of company.contacts">{{ contact }}</li>
+            </ul>
+            <h4>Workers:</h4>
+            <ul>
+              <li *ngFor="let worker of company.workers">{{ worker }}</li>
+            </ul>
+            <hr>
+            <h4>Comments:</h4>
+            <p>{{ company.comments }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <td >
+      <a  class="btn btn-outline-warning" [href]="'/companyUpdateForm/' + company.id">Update</a>
+    </td> 
+  </div>
+  

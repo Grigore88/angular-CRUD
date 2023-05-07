@@ -20,8 +20,8 @@ export class PersonsComponent {
   constructor(private personService: PersonService ){}
   ngOnInit(): void {
     this.getPersons();
-   
-  }
+   }
+  
   clear(){
     this.persons=null;
   }
@@ -49,7 +49,7 @@ export class PersonsComponent {
   public getPersons(): void{
     this.personService.getAllPersons().subscribe({
       next: c =>{this.persons = c},
-      error: error=>{alert(error.message)},
+      error: error=>{alert('serverul nu raspunde')},
       complete: ()=>{this.updatedListTime= new Date().toLocaleTimeString()}
     })}
     public savePerson(person: Person){
