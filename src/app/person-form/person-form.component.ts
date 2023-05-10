@@ -23,7 +23,10 @@ export class PersonFormComponent {
       //id: new FormControl(''),
       firstName: new FormControl(''),
       lastName: new FormControl(''),
+      maidenName: new FormControl(''),
       dateOfBirth: new FormControl(''),
+      dateOfDeath: new FormControl(''),
+      isAlive: new FormControl(''),
       email: new FormControl(''),
       gender: new FormControl(''),
       phone: new FormArray([

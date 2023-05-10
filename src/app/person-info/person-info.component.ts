@@ -25,7 +25,16 @@ id:string;
         error: error=>{console.log(error)},
         complete: ()=>{console.log( this.person)}
     
-  })})
+    })})
+  }
+  calculateAge(dateOfBirth: Date, dateOfDeath: Date): number {
+    const birth = new Date(dateOfBirth);
+    const death = new Date(dateOfDeath);
+    const ageInMillis = death.getTime() - birth.getTime();
 
-}
+    // Calculate the age in years
+    const ageInYears = Math.floor(ageInMillis / (365 * 24 * 60 * 60 * 1000));
+
+    return ageInYears;
+  }
 }

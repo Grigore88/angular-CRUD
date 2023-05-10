@@ -18,7 +18,10 @@
     <tbody>
         <tr *ngFor="let person of persons" >
             <td>{{person.firstName}}</td>
-            <td>{{person.lastName}}</td>
+            <td >
+              <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>
+              <div *ngIf="person.maidenName === undefined || person.maidenName === '' || person.maidenName === null">{{ person.lastName }}</div>
+            </td> 
             <td>{{person.dateOfBirth | date:'dd-MM-YYYY'}}</td>
             <td>{{person.age}}</td>
           <!-- <div class="zippy">

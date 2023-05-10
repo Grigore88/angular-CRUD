@@ -12,14 +12,34 @@
       <label>Last Name:</label>
       <span> {{person.lastName}}</span>
     </div>
-    <div>
+    <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null ">
+      <label>Maiden Name:</label>
+      <span> {{person.maidenName}}</span>
+    </div>
+    <div *ngIf="person.isAlive !== undefined && person.isAlive !== null ">
+      <label>Is Alive:</label>
+      <span> {{person.isAlive}}</span>
+    </div>
+    <div *ngIf="person.dateOfDeath == undefined || person.dateOfDeath == null">
+      <div>
       <label>Date of Birth:</label>
       <span> {{person.dateOfBirth | date:'dd-MM-YYYY'}}</span>
+      </div>
+      <div>
+        <label>Age:</label>
+        <span> {{person.age}}</span>
+      </div>
+
     </div>
-    <div>
-      <label>Age:</label>
-      <span> {{person.age}}</span>
+    <div *ngIf="person.dateOfDeath">
+      <span> {{person.dateOfBirth | date:'dd-MM-YYYY'}} - {{person.dateOfDeath | date:'dd-MM-YYYY'}} </span>
+      ({{ calculateAge(person.dateOfBirth, person.dateOfDeath) }} years old)
+      <div>
+        <label>Azi ar fi avut {{person.age}} de ani </label>
+      </div>
     </div>
+
+    
     <div>
       <label>Zodie:</label>
       <span> {{person.zodiac}}</span>

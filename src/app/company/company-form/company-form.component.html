@@ -23,7 +23,7 @@
         </div>
    </div>
    
-    <div class="form-group">
+    <!--<div class="form-group">-->
         <br>
         <div formArrayName="contacts">
           <div *ngFor="let contact of contactsFormArray.controls; let i=index" class="row">
@@ -35,12 +35,12 @@
               <input [formControlName]="i" class="form-control" />
             </div>
             <div class="col">
-            <button (click)="removeContact(i)" class="btn btn-outline-danger">Remove</button>
+            <button type="button" (click)="removeContact(i)" class="btn btn-outline-danger">Remove</button>
             </div>
           </div>
-        </div>
-        <button (click)="addContact()" class="btn btn-primary">Add Contact</button>
-    </div>
+        <button type="button" (click)="addContact()" class="btn btn-primary">Add Contact</button>  
+      </div>
+    <!--</div>-->
 
  <div formArrayName="workers">
     <div *ngFor="let worker of workers.controls; let i=index" class="row">
@@ -59,7 +59,7 @@
 
     <div class="form-group">
       <label>Open Hours</label>
-      <input formControlName="openHours" class="form-control" />
+      <textarea formControlName="openHours" class="form-control" ></textarea>
     </div>
     <div class="form-group">
       <label>Comments</label>
