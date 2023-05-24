@@ -1,6 +1,5 @@
 
 import { PersonService } from './../services/person.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup ,FormBuilder,FormArray, FormControl,Validators} from '@angular/forms';
 import { Person } from '../person';
@@ -42,7 +41,7 @@ export class PersonFormComponent {
       ]),
       carsList: new FormArray([
         new FormGroup({
-          model: new FormControl(''),
+          model: new FormControl(),
           plateNumber: new FormControl('')
         })
       ]),
@@ -96,16 +95,33 @@ export class PersonFormComponent {
   deleteCar(i:number) {
     this.carsForms.removeAt(i);
   }
-  onSubmit() {
-    const person: Person = this.myForm.value;
-     let createdPerson: Person;
+  savePerson(person: Person){
     this.personService.savePerson(person).subscribe({
-      next: (value)=>{createdPerson = value},
+      next: (value)=>{person = value},
       error: (err)=>{console.log(err)},
-      complete:()=>{this.router.navigate(['/personInfo/', createdPerson.id])}}
+      complete:()=>{this.router.navigate(['/personInfo/', person.id])}}//shows created person page
       // response => {console.log(response);},
       // error => console.error(error)
     );
+  }
+  onSubmit() {
+    const createdPerson: Person = this.myForm.value;
+    
+    this.personService.isPersonByFirstNameAndLastName(createdPerson.firstName, createdPerson.lastName).subscribe({
+      next: (value)=>{if(value){ 
+        const confirmation = window.confirm('Already exists. Are you sure you want to save this person?');
+        if (confirmation){
+          this.savePerson(createdPerson);
+        }
+        else{}
+      }
+       else {
+        // Save the person directly
+        this.savePerson(createdPerson);
+      }
+       }
+      })
+    
     this.ngOnInit();
   }
 }

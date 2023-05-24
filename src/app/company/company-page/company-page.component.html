@@ -1,16 +1,31 @@
 <nav class="nav">
     <a   [href]="'/companyForm/'" class="btn btn-outline-warning mb-2" >Add Company</a>
+    <input type="text" [formControl]="searchTerm" placeholder="Search companies" class="input mb-2"  />
+    <button  class="btn btn-outline-danger mb-2" (click)="clear()" >Clear</button>
     
-       
-       
-    
-      <button  class="btn btn-outline-danger mb-2" (click)="clear()" >Clear</button>
-    
-    </nav>
+</nav>
     <span [textContent]="getUpdatedListTime()">  </span>
+    <div *ngFor="let company of filteredCompanies">
+        <!-- Display company details here -->
+        <td>{{company.name}}</td>
+                <td>{{company.city}}</td>
+                <td>{{company.postCode}}</td>
+                <td>{{company.street + " " +company.streetNumber}}</td>
+                 <td >
+                  <a  class="btn btn-outline-warning" [href]="'/companyInfo/' + company.id">Info</a>
+                 </td> 
+      </div>
     <table class="table table-bordered table-striped">
     
-        <thead></thead>
+        <thead>
+            <tr>
+                <th (click)="sortCompanies('name')">Name</th>
+                <th (click)="sortCompanies('city')">City</th>
+                <th (click)="sortCompanies('postCode')">Post Code</th>
+                <th (click)="sortCompanies('street')">Street</th>
+                <!-- Add more columns as needed -->
+              </tr>
+        </thead>
         <tbody>
             <tr *ngFor="let company of companies" >
                 <td>{{company.name}}</td>

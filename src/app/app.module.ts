@@ -20,6 +20,7 @@ import { CompanyFormComponent } from './company/company-form/company-form.compon
 import { CompanyInfoComponent } from './company/company-info/company-info.component';
 import { CompanyUpdateFormComponent } from './company/company-update-form/company-update-form.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,7 @@ import { CompanyUpdateFormComponent } from './company/company-update-form/compan
     CompanyPageComponent,
     CompanyFormComponent,
     CompanyInfoComponent,
-    CompanyUpdateFormComponent
+    CompanyUpdateFormComponent,
 
 
   ],

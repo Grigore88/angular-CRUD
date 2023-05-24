@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpStatusCode} from '@angular/common/http';
 import { Person } from '../person';
 import { Observable } from 'rxjs';
 
@@ -38,4 +38,10 @@ export class PersonService {
       //const url = `${this.url}/${person.id}`;  jos era (url, person);
       return this.http.put<Person>(this.url, person);
     } 
+
+  
+    isPersonByFirstNameAndLastName(firstName: string, lastName: string): Observable<Boolean>{
+      const url = `${this.url}/name?firstName=${firstName}&lastName=${lastName}`;
+      return this.http.get<Boolean>(url);
+    }
 }
