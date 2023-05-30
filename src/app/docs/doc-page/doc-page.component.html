@@ -15,7 +15,7 @@
         <tr *ngFor="let doc of docs" >
             <td>{{doc.docType}}</td>
             <td>{{doc.docNumber}}</td>
-            <td>{{doc.expireDate | date:'dd MM YYYY'}}</td>
+            <td>{{doc.expireDate | date:'dd MM yyyy'}}</td>
             <td [ngStyle]="{'color': doc.daysUntilExpire < 30 ? 'red' : 'green'}">{{doc.daysUntilExpire}}</td>
           
             

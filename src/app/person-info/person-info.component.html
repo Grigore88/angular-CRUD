@@ -23,7 +23,7 @@
     <div *ngIf="person.dateOfDeath == undefined || person.dateOfDeath == null">
       <div>
       <label>Date of Birth:</label>
-      <span> {{person.dateOfBirth | date:'dd-MM-YYYY'}}</span>
+      <span> {{person.dateOfBirth | date:'dd-MM-yyyy'}}</span>
       </div>
       <div>
         <label>Age:</label>
@@ -32,7 +32,7 @@
 
     </div>
     <div *ngIf="person.dateOfDeath">
-      <span> {{person.dateOfBirth | date:'dd-MM-YYYY'}} - {{person.dateOfDeath | date:'dd-MM-YYYY'}} </span>
+      <span> {{person.dateOfBirth | date:'dd-MM-yyyy'}} - {{person.dateOfDeath | date:'dd-MM-YYYY'}} </span>
       ({{ calculateAge(person.dateOfBirth, person.dateOfDeath) }} years old)
       <div>
         <label>Azi ar fi avut {{person.age}} de ani </label>
