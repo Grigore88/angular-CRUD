@@ -1,4 +1,7 @@
 <div [formGroup]="myForm">
+  <div>
+    <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls">
+  </div>
   <div class="col-sm-2">
     <label>Add Pause(minutes):</label>
     <input type="number" [(ngModel)]="pauseValue" [ngModelOptions]="{standalone: true}">
@@ -52,4 +55,5 @@
         <span [textContent]="calculateTotalHours()"></span>
       </div>
     </div>
+    <button (click)="exportToExcel()">Download Excel</button>
 </div>

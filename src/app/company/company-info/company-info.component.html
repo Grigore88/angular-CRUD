@@ -10,6 +10,10 @@
             <p>{{ company.street }} {{ company.streetNumber }}. {{ company.postCode }}, {{ company.city }}</p>
             <p>Open Hours: {{ company.openHours }}</p>
             <hr>
+            <h4>Delivery Points</h4>
+            <ul>
+              <li *ngFor="let point of company.deliveryPoint">{{ point.name }} <a [href]="getGoogleRef(point.latitude, point.longitude)" target="_blank">map</a></li>
+            </ul>
             <h4>Contacts:</h4>
             <ul>
               <li *ngFor="let contact of company.contacts">{{ contact }}</li>

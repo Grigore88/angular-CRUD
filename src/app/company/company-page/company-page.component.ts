@@ -19,7 +19,18 @@ searchTerm = new FormControl();
 constructor(private companyService: CompanyService){}
 
 ngOnInit(): void {
-  this.getCompanies();
+  
+  // Load the companies from local storage if available
+  const savedData = localStorage.getItem('companiesData');
+
+  if (savedData) {
+    const parsedData = JSON.parse(savedData);
+    this.companies = parsedData.companies;
+    this.updatedListTime = parsedData.updatedListTime;
+  } else {
+    // If not available in local storage, fetch companies from the service
+    this.getCompanies();
+  }
   this.searchTerm.valueChanges
     .pipe(
       debounceTime(300), // Add a delay before triggering the search
@@ -50,14 +61,44 @@ ngOnInit(): void {
 
 public getCompanies(): void{
 this.companyService.getAllCompanies().subscribe({
-  next: c=>{this.companies=c},
+  next: c=>{
+    this.companies=c;
+    // Update the update timestamp
+    this.updatedListTime = new Date().toLocaleTimeString("en-US", { hour12: false }) +' '+ new Date().toLocaleDateString();
+    // Save both the companies list and the update timestamp to local storage
+    const dataToSave = {
+      companies: this.companies,
+      updatedListTime: this.updatedListTime
+    };
+  // Save the updated companies list to local storage
+  localStorage.setItem('companiesData', JSON.stringify(dataToSave));
+},
   error: error=>{alert(error.message)},
-  complete: ()=>{this.updatedListTime= new Date().toLocaleTimeString()}
+  complete: ()=>{}//this.updatedListTime= new Date().toLocaleTimeString("en-US", { hour12: false }) +' '+  new Date().toLocaleDateString()}
 })}
 
 clear(){
-  this.filteredCompanies=null;
-  this.searchTerm.defaultValue;
+  const confirmation = window.confirm('Are you sure?');
+        if (confirmation){
+          // Clear the companies list from both the component and local storage
+              this.companies = [];
+              localStorage.removeItem('companiesData');
+              this.searchTerm.setValue(''); // Clear the search term if needed
+              this.filteredCompanies=null;
+              this.searchTerm.defaultValue;
+              this.updatedListTime='';
+        }
+        else{}
+  
+}
+refreshLocalComapanies(){
+  const confirmation = window.confirm('Are you sure?');
+        if (confirmation){
+          this.companyService.refreshLocalStorage();
+          window.location.reload();
+        }
+        else{}
+  
 }
 
 public getUpdatedListTime(){

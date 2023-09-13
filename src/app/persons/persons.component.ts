@@ -1,8 +1,13 @@
+import { Router } from '@angular/router';
+
 import { Person } from './../person';
 import { Component } from '@angular/core';
 import { PersonService } from '../services/person.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { FormControl } from '@angular/forms';
+
+
+
 
 @Component({
   selector: 'app-persons',
@@ -16,8 +21,11 @@ export class PersonsComponent {
   searchText = new FormControl();
   updatedListTime: string;
   
-  constructor(private personService: PersonService ){}
+  constructor(private personService: PersonService, private router:Router){}
   ngOnInit(): void {
+   // if(!sessionStorage.getItem('username')){
+  // this.router.navigateByUrl('/login')}
+    //else{}
     this.getPersons();
     this.searchText.valueChanges
     .pipe(

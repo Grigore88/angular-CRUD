@@ -31,6 +31,7 @@
             <div class="col">
               <label>Contact {{i + 1}}</label>
             </div>
+          
             <div class="col">
               <input [formControlName]="i" class="form-control" />
             </div>
@@ -39,6 +40,31 @@
             </div>
           </div>
         <button type="button" (click)="addContact()" class="btn btn-primary">Add Contact</button>  
+      </div>
+      <br>
+      <div formArrayName="deliveryPoint">
+        <div *ngFor="let point of deliveryPointForm.controls; let i=index">
+          <div [formGroupName]="i" class="row">
+            <div class="col">
+              <label for="name">Delivery Point:</label>
+              <input type="text" id="name" formControlName="name" class="form-control">
+            </div>
+            <div class="col">
+              <label for="latitude">Latitude:</label>
+              <input type="text" id="latitude" formControlName="latitude" class="form-control">
+            </div>
+            <div class="col">
+              <label for="longitude">Longitude:</label>
+              <input type="text" id="longitude" formControlName="longitude" class="form-control">
+            </div>
+            <div class="col">
+              <br>
+              <button type="button" (click)="deletePoint(i)" class="btn btn-outline-danger">Delete Point</button>
+            </div>
+          </div>
+          
+      </div>
+        <button type="button" (click)="addPoint()" class="btn btn-primary">Add Point</button>
       </div>
     <!--</div>-->
 

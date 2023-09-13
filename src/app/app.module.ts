@@ -19,6 +19,7 @@ import { CompanyPageComponent } from './company/company-page/company-page.compon
 import { CompanyFormComponent } from './company/company-form/company-form.component';
 import { CompanyInfoComponent } from './company/company-info/company-info.component';
 import { CompanyUpdateFormComponent } from './company/company-update-form/company-update-form.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { CompanyUpdateFormComponent } from './company/company-update-form/compan
     CompanyFormComponent,
     CompanyInfoComponent,
     CompanyUpdateFormComponent,
+    LoginComponent,
 
 
   ],
@@ -59,7 +61,8 @@ import { CompanyUpdateFormComponent } from './company/company-update-form/compan
           {path: 'companies', component: CompanyPageComponent},
           {path: 'companyForm', component: CompanyFormComponent},
           {path: 'companyInfo/:id', component: CompanyInfoComponent},
-          {path: 'companyUpdateForm/:id', component: CompanyUpdateFormComponent}
+          {path: 'companyUpdateForm/:id', component: CompanyUpdateFormComponent},
+          { path: 'login', component: LoginComponent }
           ]}
        ]},
       ])

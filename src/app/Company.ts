@@ -1,3 +1,5 @@
+import { DeliveryPoint } from "./DeliveryPoint";
+
 export interface Company{
     id?:string;
     name?:string;
@@ -6,6 +8,7 @@ export interface Company{
     city?:string;
     postCode?:string;
     openHours?:string;
+    deliveryPoint?: DeliveryPoint[];
     contacts?:string[];
     workers?:string[];
     comments:string;

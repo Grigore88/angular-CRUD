@@ -15,11 +15,14 @@
 <div *ngFor="let person of filtredPersons">
   <!-- Display company details here -->
   <td>{{person.firstName}}</td>
-          <td>{{person.lastName}}</td>
-          <td>{{person.dateOfBirth}}</td>
-           <td >
-            <a  class="btn btn-outline-warning" [href]="'/personInfo/' + person.id">Info</a>
-           </td> 
+  <td >
+    <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>
+    <div *ngIf="person.maidenName === undefined || person.maidenName === '' || person.maidenName === null">{{ person.lastName }}</div>
+  </td> 
+  <td>{{person.dateOfBirth}}</td>
+  <td >
+    <a  class="btn btn-outline-warning" [href]="'/personInfo/' + person.id">Info</a>
+  </td> 
 </div>
 <table class="table table-bordered table-striped">
 
