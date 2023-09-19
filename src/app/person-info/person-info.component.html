@@ -1,7 +1,7 @@
 <div>
     <h2>Person Details</h2>
     <div>
-      <label>ID: </label>
+      <label *ngIf="person.id== undefined || person.id == null">ID: </label>
       <span>{{person.id}}</span>
     </div>
     <div>
@@ -45,12 +45,12 @@
       <span> {{person.zodiac}}</span>
     </div>
     <div>
-      <label>Phone: </label>
+      <label *ngIf="person.phone== undefined || person.phone == null">Phone: </label>
       <ul>
         <li *ngFor="let phone of person.phone">{{phone}}</li>
       </ul>
     </div>
-    <div>
+    <div *ngIf="person.email">
       <label>Email:</label>
       <span> {{person.email}}</span>
     </div>
@@ -58,7 +58,7 @@
       <label>Gender:</label>
       <span> {{person.gender}}</span>
     </div>
-    <div>
+    <div *ngIf="person.address && person.address.length!==0">
       <label>Address:</label>
       <ul>
         <li *ngFor="let address of person.address">
@@ -66,7 +66,7 @@
         </li>
       </ul>
     </div>
-    <div>
+    <div *ngIf="person.carsList && person.carsList.length!==0">
       <label>Cars List:</label>
       <ul>
         <li *ngFor="let car of person.carsList">
@@ -75,10 +75,33 @@
       </ul>
     </div>
     
-    <div>
+    <div *ngIf="person.comments">
       <label>Comments:</label>
       <span> {{person.comments}}</span>
     </div>
+    <div *ngIf="person.eventsID">
+    <table class="table table-bordered table-striped">
+      <thead></thead>
+      <tbody>
+    
+      <label>Evenimente: </label>
+      <tr *ngFor="let eveimnet of eveniments">
+        
+         <td>{{eveimnet.eventName}}</td>
+         
+         <td>{{eveimnet.eventDate}}</td>
+         <td>{{eveimnet.age}}</td>
+         <td>{{eveimnet.description}}</td>
+
+         <td >
+          <a  class="btn btn-outline-warning" [href]="'/eventInfo/' + eveimnet.id">Info</a>
+        </td> 
+      </tr>
+
+    
+  </tbody>
+  </table>
+</div>
     <td >
       <a  class="btn btn-outline-warning" [href]="'/personUpdateForm/' + person.id">Update</a>
     </td> 

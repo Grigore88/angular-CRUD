@@ -1,0 +1,21 @@
+<div *ngIf="event">
+    <h2>{{ event.eventName }}</h2>
+    <p><strong>Event Date:</strong> {{ event.eventDate }}</p>
+    <p><strong>Event Age:</strong> {{ event.age }}</p>
+    <p><strong>Description:</strong> {{ event.description }}</p>
+  
+    <h3>Associated Persons:</h3>
+    <ul>
+      <li *ngFor="let person of persons">
+        {{ person.firstName }} {{ person.lastName }} 
+        <td >
+          <a  class="btn btn-outline-warning" [href]="'/personInfo/' + person.id">Info</a>
+        </td>
+        
+      </li>
+    </ul>
+    <td >
+      <a  class="btn btn-outline-warning" [href]="'/eventUpdateForm/' + event.id">Update</a>
+    </td> 
+  </div>
+  

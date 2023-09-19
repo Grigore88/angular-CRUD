@@ -25,11 +25,17 @@ public getDocs(){
   })
 }
 public deleteDoc(id :string){
-  this.docDervice.deleteDoc(id).subscribe({
-    next: c => {console.log(c)},
-    error: error=>{console.log(error)},
-    complete: ()=>{this.ngOnInit()}
-  });
-  console.log("deleting in main page" + id)
+  const confirmation = window.confirm('Are you sure?');
+  if (confirmation){
+    this.docDervice.deleteDoc(id).subscribe({
+      next: c => {console.log(c)},
+      error: error=>{console.log(error)},
+      complete: ()=>{this.ngOnInit()}
+    });
+    console.log("deleting in main page" + id)
+  }
+  else{}
+
+  
 }
 }

@@ -20,6 +20,10 @@ import { CompanyFormComponent } from './company/company-form/company-form.compon
 import { CompanyInfoComponent } from './company/company-info/company-info.component';
 import { CompanyUpdateFormComponent } from './company/company-update-form/company-update-form.component';
 import { LoginComponent } from './login/login.component';
+import { EventFormComponent } from './event/event-form/event-form.component';
+import { EventUpdateComponent } from './event/event-update/event-update.component';
+import { EventPageComponent } from './event/event-page/event-page.component';
+import { EventInfoComponent } from './event/event-info/event-info.component';
 
 
 @NgModule({
@@ -39,6 +43,10 @@ import { LoginComponent } from './login/login.component';
     CompanyInfoComponent,
     CompanyUpdateFormComponent,
     LoginComponent,
+    EventFormComponent,
+    EventUpdateComponent,
+    EventPageComponent,
+    EventInfoComponent,
 
 
   ],
@@ -62,7 +70,11 @@ import { LoginComponent } from './login/login.component';
           {path: 'companyForm', component: CompanyFormComponent},
           {path: 'companyInfo/:id', component: CompanyInfoComponent},
           {path: 'companyUpdateForm/:id', component: CompanyUpdateFormComponent},
-          { path: 'login', component: LoginComponent }
+          { path: 'login', component: LoginComponent },
+          {path: 'eventForm', component: EventFormComponent},
+          {path: 'eventUpdateForm/:id' , component: EventUpdateComponent},
+          {path: 'eventPage', component: EventPageComponent},
+          {path: 'eventInfo/:id', component: EventInfoComponent }
           ]}
        ]},
       ])

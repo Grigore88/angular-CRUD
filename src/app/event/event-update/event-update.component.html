@@ -1,0 +1,51 @@
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="eventName">Event Name</label>
+      <input type="text" id="eventName" formControlName="eventName" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="eventDate">Event Date</label>
+      <input type="date" id="eventDate" formControlName="eventDate" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Select Persons</label>
+        <input type="text" [formControl]="searchText" placeholder="Search person" class="input mb-2"  />
+        <div *ngFor="let person of filtredPersons">
+            <!-- Display company details here -->
+            <td>{{person.firstName}}</td>
+            <td >
+              <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>
+              <div *ngIf="person.maidenName === undefined || person.maidenName === '' || person.maidenName === null">{{ person.lastName }}</div>
+            </td> 
+            <td>{{person.dateOfBirth}}</td>
+            <td >
+              <button  type="button" class="btn btn-outline-warning" (click)="addPerson(person)" >Add</button>
+            </td> 
+          </div>
+    </div>
+    
+
+    <div class="form-group">
+        <label>Select Persons</label>
+        
+        <div *ngFor="let person of selectedPersons">
+            <!-- Display company details here -->
+            <td>{{person.firstName}}</td>
+            <td >
+              <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>
+              <div *ngIf="person.maidenName === undefined || person.maidenName === '' || person.maidenName === null">{{ person.lastName }}</div>
+            </td> 
+            <td>{{person.dateOfBirth}}</td>
+            <td >
+              <button  type="button" class="btn btn-outline-danger" (click)="removeSelectedPerson(person)" >Remove</button>
+            </td> 
+          </div>
+        </div>    
+      
+   
+    <button type="submit" class="btn btn-primary">Save Event</button>
+  </form>
+  <div>{{eventForm.value | json}}</div>
+  <div>{{eventToUpdate.personsId| json}}</div>
+  <div>{{originalPersonsId| json}}</div>
+  

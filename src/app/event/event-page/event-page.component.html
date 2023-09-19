@@ -1,0 +1,31 @@
+<td >
+    <a  class="btn btn-outline-warning" [href]="'/eventForm/'">Add Event</a>
+  </td> 
+<table class="table table-bordered table-striped">
+
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Event age</th>
+        
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let event of events" >
+            <td>{{event.eventName}}</td>
+            <td>{{event.eventDate | date:'dd MM yyyy'}}</td>
+            <td>{{event.age}}</td>
+          
+            <td >
+                <a  class="btn btn-outline-warning" [href]="'/eventInfo/' + event.id">Info</a>
+              </td> 
+            
+            <td >
+              <button  class="btn btn-outline-danger" (click)="deleteEvent(event.id)">Delete</button>
+            </td> 
+             
+        </tr>
+    </tbody>
+    <router-outlet></router-outlet>
+</table>
