@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { FormGroup ,FormBuilder,FormArray, FormControl,Validators} from '@angular/forms';
 import { Person } from '../person';
 import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { Relative } from '../models/relative';
 
 
 @Component({
@@ -14,10 +16,35 @@ import { Router } from '@angular/router';
 export class PersonFormComponent {
 
   myForm: FormGroup;
+
+  persons: Person[]; // Assuming a person object structure
+  personsMap: Map<string, Person> = new Map();
+  filtredPersons: Person[]; //persons in search result
+  selectedPersons: Person [] = []; //persons to be saved
+  searchText = new FormControl();
+  relatives: Relative[];
+
   constructor(private fb: FormBuilder,
     private personService: PersonService,
     private router: Router ) { }
   ngOnInit() {
+    this.initializeForm()
+
+    this.loadPersons();
+   // 
+    this.searchText.valueChanges
+    .pipe(
+      debounceTime(300), // Add a delay before triggering the search
+      distinctUntilChanged() // Trigger the search only if the search term changes
+    )
+    .subscribe((searchText: string) => {
+      // Call a method to perform the search based on the searchValue
+      this.searchPersons(searchText);
+    });
+
+  }
+  
+  initializeForm(){
     this.myForm = new FormGroup({
       //id: new FormControl(''),
       firstName: new FormControl(''),
@@ -39,9 +66,15 @@ export class PersonFormComponent {
           country: new FormControl('')
         })
       ]),
+      relatives: new FormArray([
+        //new FormGroup({
+          //relativePersonId: new FormControl(''),
+         //relativeType: new FormControl('')
+       // })
+      ]),
       carsList: new FormArray([
         new FormGroup({
-          model: new FormControl(),
+          model: new FormControl(''),
           plateNumber: new FormControl('')
         })
       ]),
@@ -84,6 +117,36 @@ export class PersonFormComponent {
     return this.myForm.get('carsList') as FormArray;
   }
 
+  get relativesForm() {
+    return this.myForm.get('relatives') as FormArray;
+  }
+
+  addRelative(person:Person) {
+    const personId = person.id;
+    const relative = new FormGroup({
+      relativePersonId: new FormControl(personId),
+      relativeType: new FormControl('')
+    });
+    this.relativesForm.push(relative);
+  }
+
+  deleteRelative(i:number) {
+    this.relativesForm.removeAt(i);
+  }
+  
+  getPersonByRelativeObject(relative:Relative):string{
+    let newPerson:Person;
+    this.personService.getPersonById(relative.relativePersonId).subscribe(
+      {next: person=>{newPerson=person
+      console.log(person)},
+      error: error=>{alert('serverul nu raspunde')},
+      complete: ()=>{}
+    },
+      )
+   return newPerson.firstName + newPerson.lastName;
+  }
+  
+
   addCar() {
     const car = new FormGroup({
       model: new FormControl(''),
@@ -104,6 +167,51 @@ export class PersonFormComponent {
       // error => console.error(error)
     );
   }
+
+  loadPersons() {
+    this.personService.getAllPersons().subscribe({
+      next: c =>{this.persons = c},
+      error: error=>{alert('serverul nu raspunde')},
+      complete: ()=>{this.personsMap = this.personService.getAllPersonsMap(this.persons);}
+    })
+  }
+
+  removePersonFromList(personToRemove: Person, personList: Person[]) {
+    const indexToRemove = personList.findIndex((person) => person === personToRemove);
+  
+    if (indexToRemove !== -1) {
+      personList.splice(indexToRemove, 1);
+    }
+  }
+  searchPersons(searchText: string) {
+    this.filtredPersons = this.persons.filter((person: Person) => {
+      // Perform case-insensitive search on relevant fields
+      return (
+        person.firstName?.toLowerCase().includes(searchText.toLowerCase()) ||
+        person.lastName?.toLowerCase().includes(searchText.toLowerCase()) ||
+        person.maidenName?.toLowerCase().includes(searchText.toLowerCase())  )  }
+      );
+    }
+   
+    addPerson(person:Person){
+      this.selectedPersons.push(person);
+      this.removePersonFromList(person, this.filtredPersons);
+      this.addRelative(person)
+      
+    }
+   removeSelectedPerson(personToRemove:Person){
+   this.removePersonFromList(personToRemove, this.selectedPersons)
+   }
+   getFullNameById(personId: string): string | null {
+    const person = this.personsMap.get(personId);
+  
+    if (person) {
+      return `${person.firstName} ${person.lastName}`;
+    } else {
+      return null; // Handle the case where the person is not found
+    }
+  }
+
   onSubmit() {
     const createdPerson: Person = this.myForm.value;
     

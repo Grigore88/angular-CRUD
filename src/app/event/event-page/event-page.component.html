@@ -1,6 +1,31 @@
 <td >
     <a  class="btn btn-outline-warning" [href]="'/eventForm/'">Add Event</a>
   </td> 
+  <div>
+    <label for="sortMonth">Select a Month:</label>
+    <select id="sortMonth" [(ngModel)]="selectedMonth">
+      <option value="1">Ianuarie</option>
+      <option value="2">Februarie</option>
+      <option value="3">Martie</option>
+      <option value="4">Aprilie</option>
+      <option value="5">Mai</option>
+      <option value="6">Iunie</option>
+      <option value="7">Iulie</option>
+      <option value="8">August</option>
+      <option value="9">Septembrie</option>
+      <option value="10">Octombrie</option>
+      <option value="11">Noiembrie</option>
+      <option value="12">Decembrie</option>
+      
+    </select>
+    <button (click)="sortEventsByMonth(selectedMonth)">Sort by Month</button>
+
+  </div>
+  
+ <!-- <div>
+    <button class="btn btn-outline-primary" (click)="sortByMonth()">Sort by Month</button>
+    <button class="btn btn-outline-primary" (click)="sortByDate()">Sort by Date</button>
+  </div>-->
 <table class="table table-bordered table-striped">
 
     <thead>
@@ -8,15 +33,24 @@
         <th>Name</th>
         <th>Date</th>
         <th>Event age</th>
+        <th>  </th>
+        <th>  </th>
+        <th>  </th>
         
     </tr>
     </thead>
     <tbody>
         <tr *ngFor="let event of events" >
             <td>{{event.eventName}}</td>
-            <td>{{event.eventDate | date:'dd MM yyyy'}}</td>
+            <td>{{event.eventDate | date:'dd-MM-YYYY'}}</td>
+            
             <td>{{event.age}}</td>
-          
+            <td><div *ngIf="event.eventDate > today">{{ calculateDaysRemaining(event.eventDate) }} days remaining
+            </div>
+          <div *ngIf="event.eventDate <= today">
+              {{ calculateYearsPassed(event.eventDate) }} years passed
+          </div>
+            </td>
             <td >
                 <a  class="btn btn-outline-warning" [href]="'/eventInfo/' + event.id">Info</a>
               </td> 

@@ -1,6 +1,7 @@
 import { Address } from "./address";
 import { Car } from "./car";
 import { Eveniment } from "./eveniment";
+import { Relative } from "./models/relative";
 export interface Person{
     id?: string;
     firstName: string;
@@ -14,6 +15,7 @@ export interface Person{
     gender?: string;
     address?: Address[];
     carsList?: Car[];
+    relatives?: Relative[];
     eventsID?:string[];
     age?: number;
     zodiac?: string;

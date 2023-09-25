@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PersonService } from './../services/person.service';
 import { Component } from '@angular/core';
 import { Eveniment } from 'src/app/eveniment';
+import { Relative } from '../models/relative';
 
 @Component({
   selector: 'app-person-info',
@@ -15,6 +16,7 @@ export class PersonInfoComponent {
 person: Person;
 id:string;
 eveniments:Eveniment[] = [];
+relativePersonMap: Map<string, Person> = new Map();
 
  constructor(private personService: PersonService,
              private route: ActivatedRoute,
@@ -31,6 +33,8 @@ eveniments:Eveniment[] = [];
         error: error=>{console.log(error)},
         complete: ()=>{console.log( this.person)
           this.loadPersonEvents()
+          this.loadPersonsFromRelatives()
+          console.log(this.relativePersonMap)
         }
     
     })})
@@ -50,7 +54,26 @@ eveniments:Eveniment[] = [];
         console.log('person.events is undefined or empty.');
       }
   }
+  loadPersonsFromRelatives(){
+    if(this.person.relatives){
+      let persIdArray:string[] = [];
+      this.person.relatives.forEach(element => {persIdArray.push(element.relativePersonId)});
+      //console.log(persIdArray)
+      this.relativePersonMap = this.personService.personIdToMap(persIdArray);
+      }
+   
+   
+  }
+
+  getFullNameById(personId: string): string | null {
+    const person = this.relativePersonMap.get(personId);
   
+    if (person) {
+      return `${person.firstName} ${person.lastName}`;
+    } else {
+      return null; // Handle the case where the person is not found
+    }
+  }
   calculateAge(dateOfBirth: Date, dateOfDeath: Date): number {
     const birth = new Date(dateOfBirth);
     const death = new Date(dateOfDeath);

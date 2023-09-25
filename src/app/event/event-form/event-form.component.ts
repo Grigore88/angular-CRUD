@@ -1,9 +1,11 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Person } from 'src/app/person';
 import { EventService } from 'src/app/services/event.service';
 import { PersonService } from 'src/app/services/person.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { Relative } from 'src/app/models/relative';
 
 
 @Component({
@@ -21,7 +23,8 @@ export class EventFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private eventService: EventService,
-    private personService: PersonService
+    private personService: PersonService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -87,7 +90,7 @@ export class EventFormComponent implements OnInit {
     this.eventService.saveEvent(eventData).subscribe({
       next: (value)=>{console.log(value)},
       error: (err)=>{console.log(err)},
-      complete:()=>{}
+      complete:()=>{this.router.navigate(['/eventPage/'])}
     })
   }
 }

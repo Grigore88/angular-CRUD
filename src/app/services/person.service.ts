@@ -41,19 +41,32 @@ export class PersonService {
     this.getPersonById(personId).subscribe((person: Person) => {
       persons.push(person);
     });})
+    
     return persons;
     }
-    personIdToHashMap(personsId: string[]): { [key: string]: Person } {
-      const persons:Person[] = this.getPersonsByIdArray(personsId);
-      const hashMap: { [key: string]: Person } = {};
-  
-      persons.forEach(person => {
-        hashMap[person.id] = person;
-      });
-  
-      return hashMap;
+    personIdToMap(personsId: string[]): Map<string, Person> {
+      let persons:Person[]=[];
+      let map: Map<string, Person> = new Map();
+      personsId.forEach(personId => {
+        this.getPersonById(personId).subscribe({
+          next: (person: Person) => {persons.push(person);},
+          error: error=>{console.log(error)},
+        complete: ()=>{persons.forEach(person => {
+          console.log(person.id)
+          map.set(person.id, person)
+        });
+        }
+        })
+        ;})
+      return map;
     }
-  
+    getAllPersonsMap(persons: Person[]): Map<string, Person>{
+      let map: Map<string, Person> = new Map();
+      persons.forEach(person => {
+        map.set(person.id, person)
+      });
+      return map;
+    }
     updatePerson(person: Person): Observable<Person> {
       //const url = `${this.url}/${person.id}`;  jos era (url, person);
       return this.http.put<Person>(this.url, person);

@@ -74,17 +74,31 @@
         </li>
       </ul>
     </div>
-    
+    <div *ngIf="person.relatives && person.relatives.length!==0">
+      <label>Relatives:</label>
+      <ul>
+        <li *ngFor="let relative of person.relatives">
+          {{relative.relativeType}} <a  [href]="'/personInfo/' + relative.relativePersonId" target="_blank">  {{getFullNameById(relative.relativePersonId)}}</a>
+        </li>
+      </ul>
+    </div>
     <div *ngIf="person.comments">
       <label>Comments:</label>
       <span> {{person.comments}}</span>
     </div>
     <div *ngIf="person.eventsID">
     <table class="table table-bordered table-striped">
-      <thead></thead>
+      <thead>
+        <label>Evenimente: </label>
+        <tr>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Event age</th>
+          <th>  </th>
+      </thead>
       <tbody>
     
-      <label>Evenimente: </label>
+      
       <tr *ngFor="let eveimnet of eveniments">
         
          <td>{{eveimnet.eventName}}</td>
@@ -103,7 +117,7 @@
   </table>
 </div>
     <td >
-      <a  class="btn btn-outline-warning" [href]="'/personUpdateForm/' + person.id">Update</a>
+      <a  class="btn btn-outline-warning" [href]="'/personUpdateForm/' + person.id" >Update</a>
     </td> 
   </div>
   

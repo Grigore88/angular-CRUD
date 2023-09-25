@@ -15,6 +15,11 @@ export class EventService {
     return this.http.get<Eveniment[]>(this.url);
   }
 
+  getPersonsByMonthOfBirth(month: number):Observable<Eveniment[]>{
+    const url = `${this.url}/byMonth/${month}`;
+    return this.http.get<Eveniment[]>(url); //{headers:this.authService.getHeahers()}
+  }
+
   // Save a new event
   saveEvent(eventData: Eveniment): Observable<Eveniment> {
     return this.http.post<Eveniment>(this.url, eventData);

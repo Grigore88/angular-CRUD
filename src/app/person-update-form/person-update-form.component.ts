@@ -5,6 +5,8 @@ import { Person } from './../person';
 import { PersonService } from './../services/person.service';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { Relative } from '../models/relative';
 @Component({
   selector: 'app-person-update-form',
   templateUrl: './person-update-form.component.html',
@@ -15,6 +17,12 @@ export class PersonUpdateFormComponent {
   myForm: FormGroup;
   person: Person;
   id: string;
+  persons: Person[]; // Assuming a person object structure
+  personsMap: Map<string, Person> = new Map();
+  filtredPersons: Person[]; //persons in search result
+  selectedPersons: Person [] = []; //persons to be saved
+  searchText = new FormControl();
+  relatives: Relative[];
 
   constructor(private fb: FormBuilder,
     private personService: PersonService,
@@ -34,21 +42,27 @@ export class PersonUpdateFormComponent {
       email: new FormControl(''),
       gender: new FormControl(''),
       phone: new FormArray([
-        new FormControl('')
+        //new FormControl('')
       ]),
-      address: new FormArray([
-        new FormGroup({
-        street: new FormControl(''),
-        postCode: new FormControl(''),
-        city: new FormControl(''),
-        country: new FormControl('')
-        })
+        address: new FormArray([
+        //new FormGroup({
+      //  street: new FormControl(''),
+      //  postCode: new FormControl(''),
+       // city: new FormControl(''),
+       // country: new FormControl('')
+       //})
+      ]),
+      relatives: new FormArray([
+        //new FormGroup({
+          //relativePersonId: new FormControl(''),
+         //relativeType: new FormControl('')
+       // })
       ]),
       carsList: new FormArray([
-        new FormGroup({
-          model: new FormControl(''),
-          plateNumber: new FormControl('')
-        })
+        //new FormGroup({
+         // model: new FormControl(''),
+         // plateNumber: new FormControl('')
+       // })
       ]),
       comments: new FormControl('')
     });
@@ -68,21 +82,22 @@ export class PersonUpdateFormComponent {
             email: this.person.email,
             gender: this.person.gender,
             phone: this.person.phone,
-           // address: this.person.address,
+            relatives: this.relatives,
+            address: this.person.address,
             carsList: this.person.carsList,
             comments: this.person.comments
           });
           
-              this.addressForms.removeAt(0);
+             // this.addressForms.removeAt(0);
               this.person.address.forEach(address => {
               this.addressForms.push(this.createAddressFormWithValue(address));});
 
-              this.carsForms.removeAt(0);
+             // this.carsForms.removeAt(0);
               this.person.carsList.forEach(car=>{this.carsForms.push(this.createCarsListwithValue(car))});
 
-              this.phoneForms.removeAt(0);
+              //this.phoneForms.removeAt(0);
               this.person.phone.forEach(phone=>{this.phoneForms.push(this.createPhoneWithValue(phone))});
-
+              this.person.relatives.forEach(relative => {this.relativesForm.push(this.createRelativeWithValue(relative))});
 
 
         },
@@ -91,7 +106,17 @@ export class PersonUpdateFormComponent {
          })
          //this.myForm.patchValue(this.person);
         })
-
+        this.loadPersons();
+       
+        this.searchText.valueChanges
+        .pipe(
+          debounceTime(300), // Add a delay before triggering the search
+          distinctUntilChanged() // Trigger the search only if the search term changes
+        )
+        .subscribe((searchText: string) => {
+          // Call a method to perform the search based on the searchValue
+          this.searchPersons(searchText);
+        });
    
   }
   //---------
@@ -112,7 +137,12 @@ export class PersonUpdateFormComponent {
   createPhoneWithValue(phone: string): FormControl{
     return this.fb.control(phone)
   }
-
+  createRelativeWithValue(relative: Relative){
+    return this.fb.group({
+      relativePersonId: [relative.relativePersonId],
+      relativeType: [relative.relativeType]
+    })
+  }
 
 
   //---------
@@ -163,6 +193,83 @@ export class PersonUpdateFormComponent {
   deleteCar(i:number) {
     this.carsForms.removeAt(i);
   }
+
+  get relativesForm() {
+    return this.myForm.get('relatives') as FormArray;
+  }
+
+  addRelative(person:Person) {
+    const personId = person.id;
+    const relative = new FormGroup({
+      relativePersonId: new FormControl(personId),
+      relativeType: new FormControl('')
+    });
+    this.relativesForm.push(relative);
+  }
+
+  deleteRelative(i:number) {
+    this.relativesForm.removeAt(i);
+  }
+  
+  getPersonByRelativeObject(relative:Relative):string{
+    let newPerson:Person;
+    this.personService.getPersonById(relative.relativePersonId).subscribe(
+      {next: person=>{newPerson=person
+      console.log(person)},
+      error: error=>{alert('serverul nu raspunde')},
+      complete: ()=>{}
+    },
+      )
+   return newPerson.firstName + newPerson.lastName;
+  }
+  
+
+  loadPersons() {
+    this.personService.getAllPersons().subscribe({
+      next: c =>{this.persons = c},
+      error: error=>{alert('serverul nu raspunde')},
+      complete: ()=>{ this.personsMap = this.personService.getAllPersonsMap(this.persons);}
+    })
+  }
+
+  removePersonFromList(personToRemove: Person, personList: Person[]) {
+    const indexToRemove = personList.findIndex((person) => person === personToRemove);
+  
+    if (indexToRemove !== -1) {
+      personList.splice(indexToRemove, 1);
+    }
+  }
+  searchPersons(searchText: string) {
+    this.filtredPersons = this.persons.filter((person: Person) => {
+      // Perform case-insensitive search on relevant fields
+      return (
+        person.firstName?.toLowerCase().includes(searchText.toLowerCase()) ||
+        person.lastName?.toLowerCase().includes(searchText.toLowerCase()) ||
+        person.maidenName?.toLowerCase().includes(searchText.toLowerCase())  )  }
+      );
+    }
+   
+    addPerson(person:Person){
+      this.selectedPersons.push(person);
+      this.removePersonFromList(person, this.filtredPersons);
+      this.addRelative(person)
+      
+    }
+   removeSelectedPerson(personToRemove:Person){
+   this.removePersonFromList(personToRemove, this.selectedPersons)
+   }
+   getFullNameById(personId: string): string | null {
+    const person = this.personsMap.get(personId);
+  
+    if (person) {
+      return `${person.firstName} ${person.lastName}`;
+    } else {
+      return null; // Handle the case where the person is not found
+    }
+  }
+
+
+
   onSubmit() {
     const person: Person = this.myForm.value;
     this.personService.updatePerson(person).subscribe({
