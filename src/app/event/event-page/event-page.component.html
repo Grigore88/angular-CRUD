@@ -3,7 +3,7 @@
   </td> 
   <div>
     <label for="sortMonth">Select a Month:</label>
-    <select id="sortMonth" [(ngModel)]="selectedMonth">
+    <select id="sortMonth" [(ngModel)]="selectedMonth" (change)="sortEventsByMonth(selectedMonth)">
       <option value="1">Ianuarie</option>
       <option value="2">Februarie</option>
       <option value="3">Martie</option>
@@ -18,7 +18,7 @@
       <option value="12">Decembrie</option>
       
     </select>
-    <button (click)="sortEventsByMonth(selectedMonth)">Sort by Month</button>
+    <!-- <button class="btn btn-secondary mb-2" (click)="sortEventsByMonth(selectedMonth)">Sort by Month</button> -->
 
   </div>
   

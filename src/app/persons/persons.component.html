@@ -1,13 +1,29 @@
 <nav class="nav">
 <a   [href]="'/personForm/'" class="btn btn-outline-warning mb-2" >Add Person</a>
 
-   <input  type="number" [(ngModel)]="monthValue"  min="1" max="12" class="input mb-2"  required>
-   <button  class="btn btn-secondary mb-2" (click)="getPersByMonthOfBirth()" >By birthday month</button>
-   <input type="text" [formControl]="searchText" placeholder="Search person" class="input mb-2"  />
-   <!--<input  type="text" [(ngModel)]="searchText"   class="input mb-2"  required>
-   <button  class="btn btn-secondary mb-2" (click)="getPersonsBySearchText()" >Search</button>-->
+   <!--<input  type="number" [(ngModel)]="monthValue"  min="1" max="12" class="input mb-2"  required> -->
    
-
+    <label for="sortMonth">Select a Month:</label>
+    <select class="input mb-2" id="sortMonth" [(ngModel)]="monthValue" (change)="getPersByMonthOfBirth()">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      
+    </select>
+   <!--<button  class="btn btn-secondary mb-2" (click)="getPersByMonthOfBirth()" >By birthday month</button> -->
+  
+   <input type="text" [formControl]="searchText" placeholder="Search person" class="input mb-2"  />
+  
+  
   <button  class="btn btn-outline-danger mb-2" (click)="clear()" >Clear</button>
 
 </nav>
