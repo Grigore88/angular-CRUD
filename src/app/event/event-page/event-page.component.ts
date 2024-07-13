@@ -14,9 +14,9 @@ public events: Eveniment[];
 today: Date = new Date();
 selectedMonth: number | null = null;
 
+
 ngOnInit(): void {
-  this.getEvents();
-  
+this.sortEventsByMonth(this.getCurrentMonth() + 1);
 }
 
 public getEvents(){
@@ -39,6 +39,11 @@ public deleteEvent(id :string){
         else{}
   
 }
+
+getCurrentMonth(): number {
+  return this.today.getMonth(); 
+}
+
 // Calculate days remaining till the event date
 calculateDaysRemaining(eventDate: Date): number {
   const timeDifference = new Date(eventDate).getTime() - this.today.getTime();
@@ -56,7 +61,7 @@ calculateYearsPassed(eventDate: Date): number {
 sortEventsByMonth(chosenMonth: number) {
   //if(this.chosenMonth==null||this.chosenMonth==undefined){}
    // else{
-    this.eventService.getPersonsByMonthOfBirth(chosenMonth).subscribe({
+    this.eventService.getEventsByMonth(chosenMonth).subscribe({
       next: c => {this.events = c},
     error: error=>{console.log(error)},
     complete: ()=>{}

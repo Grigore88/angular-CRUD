@@ -17,16 +17,19 @@ import { FormControl } from '@angular/forms';
 export class PersonsComponent {
   public persons: Person[];
   public filtredPersons: Person[];
-  monthValue: number;
+  monthValue: number | null;
   searchText = new FormControl();
   updatedListTime: string;
+  today: Date = new Date();
   
   constructor(private personService: PersonService, private router:Router){}
   ngOnInit(): void {
    // if(!sessionStorage.getItem('username')){
   // this.router.navigateByUrl('/login')}
     //else{}
-    this.getPersons();
+
+  this.getPersByMonthOfBirth(this.today.getMonth() + 1);
+    
     this.searchText.valueChanges
     .pipe(
       debounceTime(300), // Add a delay before triggering the search
@@ -72,15 +75,15 @@ export class PersonsComponent {
     }
   
 
-  public getPersByMonthOfBirth(){
-    if(this.monthValue==null||this.monthValue==undefined){}
-    else{
-    this.personService.getPersonsByMonthOfBirth(this.monthValue).subscribe({
+  public getPersByMonthOfBirth(month : number){
+    //if(this.monthValue==null||this.monthValue==undefined){}
+    
+    this.personService.getPersonsByMonthOfBirth(month).subscribe({
       next: c => {this.persons = c},
     error: error=>{console.log(error)},
     complete: ()=>{this.updatedListTime= new Date().toLocaleTimeString()}
     })
-  }
+  
   }
   /*public getPersonsBySearchText(){
     if(!this.searchText){}
