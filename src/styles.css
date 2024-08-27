@@ -2,3 +2,6 @@
 @import "~bootstrap/dist/css/bootstrap.css";
  
 body { padding: 20px;}
+.birthday-today {
+    background-color: #d4edda;
+  }

@@ -69,4 +69,15 @@ sortEventsByMonth(chosenMonth: number) {
  // }
 }
 
+ // Method to check if the event birthday is today
+ isBirthdayToday(dateOfBirth: Date): boolean {
+  const today = new Date();
+  const birthDate = new Date(dateOfBirth);
+
+  return (
+    today.getDate() === birthDate.getDate() &&
+    today.getMonth() === birthDate.getMonth()
+  );
+}
+
 }

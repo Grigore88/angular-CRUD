@@ -43,7 +43,7 @@
 
     <thead></thead>
     <tbody>
-        <tr *ngFor="let person of persons" >
+        <tr *ngFor="let person of persons" [ngClass]="{'table-success': isBirthdayToday(person.dateOfBirth)}">
             <td>{{person.firstName}}</td>
             <td >
               <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>

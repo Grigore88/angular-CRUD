@@ -44,7 +44,7 @@
     </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let event of events" >
+        <tr *ngFor="let event of events" [ngClass]="{'table-success': isBirthdayToday(event.eventDate)}" >
             <td>{{event.eventName}}</td>
             <td>{{event.eventDate | date:'dd-MM-YYYY'}}</td>
             

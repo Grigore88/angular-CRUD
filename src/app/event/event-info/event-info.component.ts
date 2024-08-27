@@ -33,9 +33,14 @@ export class EventInfoComponent {
 
         // Fetch associated persons using the PersonService
         this.event.personsId.forEach(personId => {
-          this.personService.getPersonById(personId).subscribe((person: Person) => {
-            this.persons.push(person);
-          });
+          this.personService.getPersonById(personId).subscribe({
+            //(person: Person) => {this.persons.push(person) }     
+            next: data => this.persons.push(data),
+            error: error => console.error('There was an error!', error),
+            complete: ()=>{console.log(this.persons)}
+            }
+          
+          );
         });
       });
     }

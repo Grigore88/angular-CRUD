@@ -47,14 +47,14 @@ export class PersonFormComponent {
   initializeForm(){
     this.myForm = new FormGroup({
       //id: new FormControl(''),
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
+      firstName: new FormControl('',Validators.required),
+      lastName: new FormControl('',Validators.required),
       maidenName: new FormControl(''),
-      dateOfBirth: new FormControl(''),
+      dateOfBirth: new FormControl('',Validators.required),
       dateOfDeath: new FormControl(''),
       isAlive: new FormControl(''),
       email: new FormControl(''),
-      gender: new FormControl(''),
+      gender: new FormControl('',Validators.required),
       phone: new FormArray([
         new FormControl('')
       ]),
@@ -71,6 +71,9 @@ export class PersonFormComponent {
           //relativePersonId: new FormControl(''),
          //relativeType: new FormControl('')
        // })
+      ]),
+      eventsID: new FormArray([
+
       ]),
       carsList: new FormArray([
         new FormGroup({
@@ -212,9 +215,10 @@ export class PersonFormComponent {
     }
   }
 
+  
   onSubmit() {
     const createdPerson: Person = this.myForm.value;
-    
+    if(this.myForm.valid){
     this.personService.isPersonByFirstNameAndLastName(createdPerson.firstName, createdPerson.lastName).subscribe({
       next: (value)=>{if(value){ 
         const confirmation = window.confirm('Already exists. Are you sure you want to save this person?');
@@ -231,6 +235,7 @@ export class PersonFormComponent {
       })
     
     this.ngOnInit();
+  }else{console.log("the inputs are not valid")}
   }
 }
  
