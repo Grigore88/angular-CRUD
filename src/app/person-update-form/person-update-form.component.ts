@@ -86,7 +86,7 @@ export class PersonUpdateFormComponent {
             gender: this.person.gender,
             phone: this.person.phone,
             relatives: this.relatives,
-            eventsID:this.person.eventsID,
+            eventsID: this.person.eventsID,
             address: this.person.address,
             carsList: this.person.carsList,
             comments: this.person.comments
@@ -101,9 +101,9 @@ export class PersonUpdateFormComponent {
 
               //this.phoneForms.removeAt(0);
               this.person.phone.forEach(phone=>{this.phoneForms.push(this.createPhoneWithValue(phone))});
-              this.person.relatives.forEach(relative => {this.relativesForm.push(this.createRelativeWithValue(relative))});
 
-              this.person.eventsID.forEach(eventsID=>{this.eventsIDFroms.push(this.createEventsIsWithValue(eventsID))});
+              this.person.eventsID.forEach(eventsID=>{this.eventsIDForms.push(this.createEventsIsWithValue(eventsID))});
+              this.person.relatives.forEach(relative => {this.relativesForm.push(this.createRelativeWithValue(relative))});
 
 
         },
@@ -143,8 +143,8 @@ export class PersonUpdateFormComponent {
   createPhoneWithValue(phone: string): FormControl{
     return this.fb.control(phone)
   }
-  createEventsIsWithValue(eventID: string): FormControl{
-    return this.fb.control(eventID)
+  createEventsIsWithValue(eventsID: string): FormControl{
+    return this.fb.control(eventsID)
   }
   createRelativeWithValue(relative: Relative){
     return this.fb.group({
@@ -156,9 +156,7 @@ export class PersonUpdateFormComponent {
 
   //---------
 
-  get phoneForms() {
-    return this.myForm.get('phone') as FormArray;
-  }
+  get phoneForms() {return this.myForm.get('phone') as FormArray;}
 
   addPhone() {                                     
     const phone = new FormControl('');
@@ -169,10 +167,15 @@ export class PersonUpdateFormComponent {
     this.phoneForms.removeAt(i);
   }
 
-  get eventsIDFroms(){return this.myForm.get('eventsID') as FormArray}
-  addEventsID(){
+  get eventsIDForms() {return this.myForm.get('eventsID') as FormArray;}
+
+  addEventsID() {
     const eventID = new FormControl('');
-    this.eventsIDFroms.push(eventID)
+    this.eventsIDForms.push(eventID);
+  }
+
+  deleteEvent(i:number) {
+    this.eventsIDForms.removeAt(i);
   }
 
   get addressForms() {

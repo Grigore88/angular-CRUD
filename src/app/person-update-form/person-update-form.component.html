@@ -128,7 +128,23 @@
             </td> 
           </div>
     </div>
-    <div formArrayName="eventsID"></div>
+    
+   <!-- <div formArrayName="eventsID">
+      <div *ngFor="let event of eventsIDForms.controls; let i=index" class="row">
+        <div class="col">
+          <label>Event {{i+1}}:</label>
+        </div>
+        <div class="col">
+          <input type="text" [formControlName]="i" class="form-control" >
+        </div>
+        <div class="col">
+          <button type="button" (click)="deleteEvent(i)" class="btn btn-outline-danger" >Delete Event {{i+1}}</button>
+        </div>
+      </div>
+      <button type="button" (click)="addEventsID()" class="btn btn-primary">Add another Event</button>
+      
+        </div> -->
+
 
     <div formArrayName="relatives"> <!-- get forms with person.id and you must add relationType -->
        <div *ngFor="let relative of relativesForm.controls; let i=index">
