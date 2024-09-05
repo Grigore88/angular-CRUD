@@ -71,7 +71,10 @@ export class PersonService {
       //const url = `${this.url}/${person.id}`;  jos era (url, person);
       return this.http.put<Person>(this.url, person);
     } 
-
+    deletePerson(personId: string): Observable<any> {
+      const eventUrl = `${this.url}/${personId}`;
+      return this.http.delete<any>(eventUrl);
+    }
   
     isPersonByFirstNameAndLastName(firstName: string, lastName: string): Observable<Boolean>{
       const url = `${this.url}/name?firstName=${firstName}&lastName=${lastName}`;

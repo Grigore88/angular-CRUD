@@ -108,6 +108,19 @@ export class PersonsComponent {
    public getUpdatedListTime(){
     return "updated " + this.updatedListTime;
    }
+   deletePeroson(id: string){
+    const confirmation = window.confirm('Are you sure?');
+        if (confirmation){
+          this.personService.deletePerson(id).subscribe({
+            next: c => {console.log(c)},
+            error: error=>{console.log(error)},
+            complete: ()=>{this.ngOnInit()}
+          });
+          console.log("deleting in main page" + id)
+        }
+        else{}
+
+   }
 
    // Method to check if the person's birthday is today
   isBirthdayToday(dateOfBirth: Date): boolean {
