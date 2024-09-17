@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Person } from './../person';
 import { PersonService } from './../services/person.service';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { Relative } from '../models/relative';
 @Component({
