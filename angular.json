@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "primul:build:production"
+              "buildTarget": "primul:build:production"
             },
             "development": {
-              "browserTarget": "primul:build:development"
+              "buildTarget": "primul:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "primul:build"
+            "buildTarget": "primul:build"
           }
         },
         "test": {
