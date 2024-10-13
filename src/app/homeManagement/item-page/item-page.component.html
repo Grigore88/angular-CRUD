@@ -6,11 +6,8 @@
             <a  class="btn btn-outline-warning" [href]="'/itemForm/'">Add Item</a>
         </td> 
         <td >
-          <a  class="btn btn-outline-warning" [href]="'/placeForm/'">Add Place</a>
+          <a  class="btn btn-outline-warning" [href]="'/managementTools/'">Management Tools</a>
       </td> 
-        <td >
-            <a  class="btn btn-outline-warning" [href]="'/locationForm/'">Add Location</a>
-        </td> 
       <button (click)="sortByExpireDate()">Sort by Expire Date</button>
       <button (click)="sortByPlace()">Sort by Place</button>
     </div>
@@ -30,6 +27,13 @@
           <td>{{ item.place?.placeName }}</td>
           <td>{{ item.expireDate | date:'dd MM yyyy'}}</td>
           <td>{{ item.barcode }}</td>
+          <td >
+            <a  class="btn btn-outline-warning" [href]="'/itemInfo/' + item.id">Info</a>
+          </td> 
+        
+        <td >
+          <button  class="btn btn-outline-danger" (click)="deleteItem(item.id)">Delete</button>
+        </td> 
         </tr>
       </tbody>
     </table>

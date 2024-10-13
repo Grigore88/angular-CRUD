@@ -1,0 +1,23 @@
+<div *ngIf="item" class="container mt-4">
+    <div class="row">
+     <!-- <div class="col-md-4">
+         Display Photo if available 
+        <div *ngIf="getPhotoUrl(); else noImage">
+          <img [src]="getPhotoUrl()" alt="{{ item.itemName }}" class="img-fluid rounded">
+        </div>
+        <ng-template #noImage>
+          <img src="assets/no-image.png" alt="No Image" class="img-fluid rounded">
+        </ng-template>
+      </div> -->
+      <div class="col-md-8">
+        <h2>{{ item.itemName }}</h2>
+        <p><strong>ID:</strong> {{ item.id }}</p>
+        <p *ngIf="item.place"><strong>Place:</strong> {{ item.place.placeName }}, {{ item.place.location.name }}</p>
+        <p *ngIf="item.expireDate"><strong>Expiration Date:</strong> {{ item.expireDate | date:'mediumDate' }}</p>
+        <p *ngIf="item.barcode"><strong>Barcode:</strong> {{ item.barcode }}</p>
+      </div>
+      <td >
+        <a  class="btn btn-outline-warning" [href]="'/itemUpdateForm/' + item.id">Update</a>
+      </td> 
+    </div>
+  </div>

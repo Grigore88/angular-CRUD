@@ -1,0 +1,48 @@
+<div class="container">
+    <h2>Create New Item</h2>
+  
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+      <!-- Item Name -->
+      <div class="form-group">
+        <label for="itemName">Item Name</label>
+        <input id="itemName" class="form-control" formControlName="itemName" placeholder="Enter item name" />
+        <div *ngIf="itemForm.get('itemName').invalid && itemForm.get('itemName').touched" class="text-danger">
+          Item Name is required.
+        </div>
+      </div>
+  
+      <!-- Place (dropdown) -->
+      <div class="form-group">
+        <label for="place">Place</label>
+        <select id="place" class="form-control" formControlName="place">
+          <option value="">Select a place</option>
+          <option *ngFor="let place of places" [ngValue]="place">{{ place.placeName }}</option>
+        </select>
+        <div *ngIf="itemForm.get('place').invalid && itemForm.get('place').touched" class="text-danger">
+          Place is required.
+        </div>
+      </div>
+  
+      <!-- Expire Date -->
+      <div class="form-group">
+        <label for="expireDate">Expiration Date</label>
+        <input type="date" id="expireDate" class="form-control" formControlName="expireDate" />
+      </div>
+  
+      <!-- Barcode -->
+      <div class="form-group">
+        <label for="barcode">Barcode</label>
+        <input id="barcode" class="form-control" formControlName="barcode" placeholder="Enter barcode" />
+      </div>
+  
+      <!-- Photo 
+      <div class="form-group">
+        <label for="photo">Item Photo</label>
+        <input type="file" id="photo" class="form-control-file" (change)="onFileSelected($event)" />
+      </div> -->
+  
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="itemForm.invalid">Submit</button>
+    </form>
+  </div>
+  <div>{{itemForm.value | json}}</div>

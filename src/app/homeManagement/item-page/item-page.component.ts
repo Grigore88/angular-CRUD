@@ -39,4 +39,18 @@ export class ItemPageComponent {
     });
   }
 
+  deleteItem(itemId: String){
+    const confirmation = window.confirm('Are you sure?');
+  if (confirmation){
+    this.hmService.deleteItem(itemId).subscribe({
+      next: c => {console.log(c)},
+      error: error=>{console.log(error)},
+      complete: ()=>{this.ngOnInit()}
+    });
+    console.log("deleting item" + itemId)
+  }
+  else{}
+
+  }
+
 }

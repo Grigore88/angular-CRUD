@@ -19,7 +19,7 @@ export class HomeManagementService {
     return this.http.get<Location[]>(`${this.apiUrl}/locations`);
   }
 
-  getLocation(id: string): Observable<Location> {
+  getLocation(id: String): Observable<Location> {
     return this.http.get<Location>(`${this.apiUrl}/locations/${id}`);
   }
 
@@ -27,7 +27,7 @@ export class HomeManagementService {
     return this.http.post<Location>(`${this.apiUrl}/locations`, location);
   }
 
-  deleteLocation(id: string): Observable<void> {
+  deleteLocation(id: String): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/locations/${id}`);
   }
 
@@ -36,7 +36,7 @@ export class HomeManagementService {
     return this.http.get<Place[]>(`${this.apiUrl}/places`);
   }
 
-  getPlace(id: string): Observable<Place> {
+  getPlace(id: String): Observable<Place> {
     return this.http.get<Place>(`${this.apiUrl}/places/${id}`);
   }
 
@@ -44,7 +44,7 @@ export class HomeManagementService {
     return this.http.post<Place>(`${this.apiUrl}/places`, place);
   }
 
-  deletePlace(id: string): Observable<void> {
+  deletePlace(id: String): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/places/${id}`);
   }
 
@@ -53,7 +53,7 @@ export class HomeManagementService {
     return this.http.get<Item[]>(`${this.apiUrl}/items`);
   }
 
-  getItem(id: string): Observable<Item> {
+  getItem(id: String): Observable<Item> {
     return this.http.get<Item>(`${this.apiUrl}/items/${id}`);
   }
 
@@ -61,24 +61,24 @@ export class HomeManagementService {
     return this.http.post<Item>(`${this.apiUrl}/items`, item);
   }
 
-  deleteItem(id: string): Observable<void> {
+  deleteItem(id: String): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/items/${id}`);
   }
 
-  updateLocation(id: string, location: Location): Observable<Location> {
-    const url = `${this.apiUrl}/locations/${id}`;
+  updateLocation(location: Location): Observable<Location> {
+    const url = `${this.apiUrl}/locations`;
     return this.http.put<Location>(url, location);
   }
 
   // Update Place
-  updatePlace(id: string, place: Place): Observable<Place> {
-    const url = `${this.apiUrl}/places/${id}`;
+  updatePlace(place: Place): Observable<Place> {
+    const url = `${this.apiUrl}/places`;
     return this.http.put<Place>(url, place);
   }
 
   // Update Item
-  updateItem(id: string, item: Item): Observable<Item> {
-    const url = `${this.apiUrl}/items/${id}`;
+  updateItem( item: Item): Observable<Item> {
+    const url = `${this.apiUrl}/items`;
     return this.http.put<Item>(url, item);
   }
 }

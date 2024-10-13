@@ -1,0 +1,43 @@
+<table class="table table-bordered table-striped">
+<div class="buttons">
+    <td >
+        <a  class="btn btn-outline-warning" [href]="'/placeForm/'">Add Place</a>
+    </td> 
+      <td >
+          <a  class="btn btn-outline-warning" [href]="'/locationForm/'">Add Location</a>
+      </td> 
+</div>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let location of locations" >
+            <td>Location</td>
+            <td>{{location.name}}</td>
+          
+            <td >
+              <a  class="btn btn-outline-warning" [href]="'/locationupdateForm/' + location.id">Update</a>
+            </td> 
+            <td >
+              <button  class="btn btn-outline-danger" (click)="deleteLocation(location.id)">Delete</button>
+            </td> 
+             
+        </tr>
+        <tr *ngFor="let place of places" >
+            <td>{{place.location.name}}</td>
+            <td>{{place.placeName}}</td>
+          
+            <td >
+              <a  class="btn btn-outline-warning" [href]="'/palceUpdateForm/' + place.id">Update</a>
+            </td> 
+            <td >
+              <button  class="btn btn-outline-danger" (click)="deletePlace(place.id)">Delete</button>
+            </td> 
+             
+        </tr>
+    </tbody>
+    <router-outlet></router-outlet>
+</table>

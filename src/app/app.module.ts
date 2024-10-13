@@ -30,6 +30,11 @@ import { ItemPageComponent } from './homeManagement/item-page/item-page.componen
 import { ItemFormComponent } from './homeManagement/item-form/item-form.component';
 import { LocationFormComponent } from './homeManagement/location-form/location-form.component';
 import { PlaceFormComponent } from './homeManagement/place-form/place-form.component';
+import { ItemInfoComponent } from './homeManagement/item-info/item-info.component';
+import { ItemUpdateFormComponent } from './homeManagement/item-update-form/item-update-form.component';
+import { ManagementToolsPageComponent } from './homeManagement/management-tools-page/management-tools-page.component';
+import { LocationUpdateFormComponent } from './homeManagement/location-update-form/location-update-form.component';
+import { PlaceUpdateFormComponent } from './homeManagement/place-update-form/place-update-form.component';
 
 
 @NgModule({
@@ -56,7 +61,12 @@ import { PlaceFormComponent } from './homeManagement/place-form/place-form.compo
     PlaceFormComponent,
     LocationFormComponent,
     ItemPageComponent,
-     ItemFormComponent,
+    ItemFormComponent,
+    ItemInfoComponent,
+    ItemUpdateFormComponent,
+    ManagementToolsPageComponent,
+    LocationUpdateFormComponent,
+    PlaceUpdateFormComponent
 
 
   ],
@@ -88,7 +98,12 @@ import { PlaceFormComponent } from './homeManagement/place-form/place-form.compo
           {path: 'itemPage', component: ItemPageComponent},
           {path: 'itemForm', component: ItemFormComponent },
           {path: 'locationForm', component: LocationFormComponent },
-          {path: 'placeForm', component: PlaceFormComponent }
+          {path: 'placeForm', component: PlaceFormComponent },
+          {path: 'itemInfo/:id', component: ItemInfoComponent },
+          {path: 'itemUpdateForm/:id', component: ItemUpdateFormComponent},
+          {path: 'managementTools', component: ManagementToolsPageComponent},
+          {path: 'locationupdateForm/:id', component: LocationUpdateFormComponent},
+          {path: 'placeUpdateForm/:id', component: PlaceUpdateFormComponent}
           ]}
        ]},
       ])
