@@ -1,0 +1,45 @@
+<div class="container">
+<form [formGroup]="locationForm" (ngSubmit)="submitForm()">
+   <!-- <div>
+      <label for="id">ID</label>
+      <input id="id" formControlName="id" readonly class="form-control">
+    </div>-->
+  
+    <div>
+      <label for="name">Location Name</label>
+      <input id="name" formControlName="name" required class="form-control">
+      <div *ngIf="locationForm.get('name')?.invalid && locationForm.get('name')?.touched">
+        Location name is required.
+      </div>
+    </div>
+  
+    <div>
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description"></textarea>
+    </div>
+  
+    <!--<div formArrayName="places">
+      <div *ngFor="let place of places.controls; let i = index">
+        <div [formGroupName]="i">
+          <label for="placeName">Place Name</label>
+          <input id="placeName" formControlName="name" required />
+          <div *ngIf="place.get('name')?.invalid && place.get('name')?.touched">
+            Place name is required.
+          </div>
+  
+          <label for="placeDescription">Place Description</label>
+          <textarea id="placeDescription" formControlName="description"></textarea>
+  
+          <button type="button" (click)="removePlace(i)">Remove Place</button>
+        </div>
+      </div>
+    </div>
+  
+    <button type="button" (click)="addPlace()">Add Place</button>
+  -->
+    <div>
+      <button type="submit" [disabled]="locationForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>
+<div>{{locationForm.value | json}}</div>

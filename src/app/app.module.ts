@@ -1,3 +1,5 @@
+import { Place } from './models/place';
+
 import { PersonsComponent } from './persons/persons.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +26,10 @@ import { EventFormComponent } from './event/event-form/event-form.component';
 import { EventUpdateComponent } from './event/event-update/event-update.component';
 import { EventPageComponent } from './event/event-page/event-page.component';
 import { EventInfoComponent } from './event/event-info/event-info.component';
+import { ItemPageComponent } from './homeManagement/item-page/item-page.component';
+import { ItemFormComponent } from './homeManagement/item-form/item-form.component';
+import { LocationFormComponent } from './homeManagement/location-form/location-form.component';
+import { PlaceFormComponent } from './homeManagement/place-form/place-form.component';
 
 
 @NgModule({
@@ -47,6 +53,10 @@ import { EventInfoComponent } from './event/event-info/event-info.component';
     EventUpdateComponent,
     EventPageComponent,
     EventInfoComponent,
+    PlaceFormComponent,
+    LocationFormComponent,
+    ItemPageComponent,
+     ItemFormComponent,
 
 
   ],
@@ -74,7 +84,11 @@ import { EventInfoComponent } from './event/event-info/event-info.component';
           {path: 'eventForm', component: EventFormComponent},
           {path: 'eventUpdateForm/:id' , component: EventUpdateComponent},
           {path: 'eventPage', component: EventPageComponent},
-          {path: 'eventInfo/:id', component: EventInfoComponent }
+          {path: 'eventInfo/:id', component: EventInfoComponent },
+          {path: 'itemPage', component: ItemPageComponent},
+          {path: 'itemForm', component: ItemFormComponent },
+          {path: 'locationForm', component: LocationFormComponent },
+          {path: 'placeForm', component: PlaceFormComponent }
           ]}
        ]},
       ])

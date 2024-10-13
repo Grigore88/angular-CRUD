@@ -1,0 +1,62 @@
+<div class="container">
+    <form [formGroup]="placeForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mb-3">
+        <label for="placeName">Place Name</label>
+        <input
+          type="text"
+          id="placeName"
+          formControlName="placeName"
+          class="form-control"
+          placeholder="Enter place name"
+          required
+        >
+        <!--<div *ngIf="placeForm.get('placeName')?.invalid && placeForm.get('placeName')?.touched" class="text-danger"> 
+          Place Name is required
+        </div>-->
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+          rows="3"
+          placeholder="Enter description"
+        ></textarea>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="barcode">Barcode</label>
+        <input
+          type="text"
+          id="barcode"
+          formControlName="barcode"
+          class="form-control"
+          placeholder="Enter barcode"
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="location">Location</label>
+        <select id="location" formControlName="location" class="form-control" required>
+        <option value="">Select a location</option>
+        <option *ngFor="let location of locations" [ngValue]="location">{{ location.name }}</option>
+        </select>
+      </div>
+  
+      <!--<div class="form-group mb-3">
+        <label for="items">Items</label>
+        <input
+          type="text"
+          id="items"
+          formControlName="items"
+          class="form-control"
+          placeholder="Enter items (comma separated)"
+        />
+      </div>-->
+  
+      <button type="submit" class="btn btn-primary" [disabled]="placeForm.invalid">Submit</button>
+    </form>
+  </div>
+<div>{{placeForm.value | json}}</div>
