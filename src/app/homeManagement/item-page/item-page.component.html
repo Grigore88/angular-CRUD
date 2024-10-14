@@ -8,25 +8,28 @@
         <td >
           <a  class="btn btn-outline-warning" [href]="'/managementTools/'">Management Tools</a>
       </td> 
-      <button (click)="sortByExpireDate()">Sort by Expire Date</button>
-      <button (click)="sortByPlace()">Sort by Place</button>
+      
+      <!--<button (click)="sortByPlace()">Sort by Place</button> -->
     </div>
   
-    <table class="table">
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th>Item Name</th>
           <th>Place</th>
           <th>Expire Date</th>
-          <th>Barcode</th>
+          <th>Days Until Expiry</th>
+        
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of items">
           <td>{{ item.itemName }}</td>
           <td>{{ item.place?.placeName }}</td>
-          <td>{{ item.expireDate | date:'dd MM yyyy'}}</td>
-          <td>{{ item.barcode }}</td>
+          <td >{{ item.expireDate | date:'dd-MM-YYYY'}}</td>
+          <td [ngStyle]="{'color': item.daysUntilExpire < 30 ? 'red' : 'green'}"
+          *ngIf="item.expireDate !== undefined && item.expireDate">{{item.daysUntilExpire}}</td>
+          
           <td >
             <a  class="btn btn-outline-warning" [href]="'/itemInfo/' + item.id">Info</a>
           </td> 

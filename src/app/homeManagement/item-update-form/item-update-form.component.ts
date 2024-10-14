@@ -37,7 +37,8 @@ export class ItemUpdateFormComponent {
             id: this.itemToUpdate.id,
             itemName: this.itemToUpdate.itemName,
             expireDate: this.itemToUpdate.expireDate,
-            place: this.itemToUpdate.place
+            place: this.itemToUpdate.place,
+            description: this.itemToUpdate.description
           })
         }  
    
