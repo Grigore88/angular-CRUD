@@ -25,16 +25,44 @@ export class LocationUpdateFormComponent {
   ) {}
 
   ngOnInit(){
+
+    this.createForm();
+
     this.route.paramMap.subscribe(params =>{
       this.locationIdParam = params.get('id');
       this.hmManagementService.getLocation(this.locationIdParam).subscribe({
-        next: c=>{this.locationToUpdate= c;},
+        next: c=>{
+              this.locationToUpdate= c;
+               
+                  },
         error: error=>{console.log(error)},
-        complete: ()=>{console.log( )}  
+        complete: ()=>{
+          this.hmManagementService.getAllPlaces().subscribe({
+            next: c=>{this.places = c;},
+            error: error=>{console.log(error)},
+            complete: ()=>{
+                this.locationForm.patchValue ({
+                id: this.locationToUpdate.id,
+                name: this.locationToUpdate.name,
+                place: this.locationToUpdate.places
+                })
+              }  
+        
+           });
+
+        }  
    
       });
     })
-    
+  
+   
+  
+   
+
+  }
+  
+  createForm(){
+      
     this.locationForm = new FormGroup({
       id: new FormControl(''),
       name: new FormControl(''),
@@ -42,23 +70,7 @@ export class LocationUpdateFormComponent {
       description: new FormControl('')
    });
 
-   this.hmManagementService.getAllPlaces().subscribe({
-    next: c=>{this.places = c;
-     this.locationForm.patchValue ({
-       id: this.locationToUpdate.id,
-       name: this.locationToUpdate.name,
-       place: this.locationToUpdate.places
-     })
-    },
-    error: error=>{console.log(error)},
-    complete: ()=>{console.log( )}  
-
-   });
-
-   
-
   }
-
 
 
 

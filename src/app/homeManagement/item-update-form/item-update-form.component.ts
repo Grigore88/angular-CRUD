@@ -25,6 +25,37 @@ export class ItemUpdateFormComponent {
   
   ngOnInit(){
 
+    this.createItemForm();
+
+    this.route.paramMap.subscribe(params =>{
+      this.itemIdParam = params.get('id');
+      this.homeManagementService.getItem(this.itemIdParam).subscribe({
+        next: c=>{this.itemToUpdate = c;},
+        error: error=>{console.log(error)},
+        complete: ()=>{
+          this.itemForm.patchValue ({
+            id: this.itemToUpdate.id,
+            itemName: this.itemToUpdate.itemName,
+            expireDate: this.itemToUpdate.expireDate,
+            place: this.itemToUpdate.place
+          })
+        }  
+   
+      });
+    })
+    this.homeManagementService.getAllPlaces().subscribe({
+     next: c=>{this.places = c;},
+     error: error=>{console.log(error)},
+     complete: ()=>{
+        
+     }  
+
+    });
+    
+
+  }
+
+  createItemForm(){
     this.itemForm = new FormGroup({
       id: new FormControl(''),
       itemName: new FormControl(''),
@@ -33,32 +64,7 @@ export class ItemUpdateFormComponent {
       expireDate: new FormControl(''),
       barcode: new FormControl('')
 
-   });
-
-    this.homeManagementService.getAllPlaces().subscribe({
-     next: c=>{this.places = c;
-      this.itemForm.patchValue ({
-        id: this.itemToUpdate.id,
-        itemName: this.itemToUpdate.itemName,
-        expireDate: this.itemToUpdate.expireDate,
-        place: this.itemToUpdate.place
-      })
-     },
-     error: error=>{console.log(error)},
-     complete: ()=>{console.log( )}  
-
     });
-    
-
-    this.route.paramMap.subscribe(params =>{
-      this.itemIdParam = params.get('id');
-      this.homeManagementService.getItem(this.itemIdParam).subscribe({
-        next: c=>{this.itemToUpdate = c;},
-        error: error=>{console.log(error)},
-        complete: ()=>{console.log( )}  
-   
-      });
-    })
   }
 
      onSubmit(){
