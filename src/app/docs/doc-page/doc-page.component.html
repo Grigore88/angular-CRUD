@@ -1,32 +1,45 @@
-<td >
-    <a  class="btn btn-outline-warning" [href]="'/docForm/'">Add Document</a>
-  </td> 
-<table class="table table-bordered table-striped">
+<div class="container mt-4">
+  <!-- Add Document Button -->
+  <div class="d-flex justify-content-end mb-3">
+    <a class="btn btn-warning btn-lg" [routerLink]="'/docForm'">
+      <i class="bi bi-plus-circle me-2"></i> Add Document
+    </a>
+  </div>
 
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Number</th>
-        <th>Expiration Date</th>
-        <th>Days Until Expiry</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let doc of docs" >
-            <td>{{doc.docType}}</td>
-            <td>{{doc.docNumber}}</td>
-            <td>{{doc.expireDate | date:'dd-MM-YYYY'}}</td>
-            <td [ngStyle]="{'color': doc.daysUntilExpire < 30 ? 'red' : 'green'}">{{doc.daysUntilExpire}}</td>
-          
-            
-            <td >
-              <a  class="btn btn-outline-warning" [href]="'/docUpdateForm/' + doc.id">Update</a>
-            </td> 
-            <td >
-              <button  class="btn btn-outline-danger" (click)="deleteDoc(doc.id)">Delete</button>
-            </td> 
-             
+  <!-- Document Table -->
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Type</th>
+          <th scope="col">Number</th>
+          <th scope="col">Expiration Date</th>
+          <th scope="col">Days Until Expiry</th>
+          <th scope="col">Actions</th>
         </tr>
-    </tbody>
-    <router-outlet></router-outlet>
-</table>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doc of docs" [class.table-danger]="doc.daysUntilExpire < 30">
+          <td>{{ doc.docType }}</td>
+          <td>{{ doc.docNumber }}</td>
+          <td>{{ doc.expireDate | date: 'dd-MM-yyyy' }}</td>
+          <td [ngClass]="{'text-danger': doc.daysUntilExpire < 30, 'text-success': doc.daysUntilExpire >= 30}">
+            {{ doc.daysUntilExpire }}
+          </td>
+          <td>
+            <div class="d-flex gap-2">
+              <a class="btn btn-outline-primary btn-sm" [routerLink]="'/docUpdateForm/' + doc.id">
+                <i class="bi bi-pencil-square"></i> Update
+              </a>
+              <button class="btn btn-outline-danger btn-sm" (click)="deleteDoc(doc.id)">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

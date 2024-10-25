@@ -1,21 +1,41 @@
-<div *ngIf="event">
-    <h2>{{ event.eventName }}</h2>
-    <p><strong>Event Date:</strong> {{ event.eventDate | date:'dd-MM-YYYY' }}</p>
-    <p><strong>Event Age:</strong> {{ event.age }}</p>
-    <p><strong>Description:</strong> {{ event.description }}</p>
-  
-    <h3>Associated Persons:</h3>
-    <ul>
-      <li *ngFor="let person of persons">
-        {{ person.firstName }} {{ person.lastName }} 
-        <td >
-          <a  class="btn btn-outline-warning" [href]="'/personInfo/' + person.id">Info</a>
-        </td>
-        
-      </li>
-    </ul>
-    <td >
-      <a  class="btn btn-outline-warning" [href]="'/eventUpdateForm/' + event.id">Update</a>
-    </td> 
+<div *ngIf="event" class="container my-5">
+  <!-- Event Card -->
+  <div class="card shadow-lg p-4 mb-5 bg-white rounded">
+    <div class="card-header bg-primary text-white text-center">
+      <h2 class="mb-0">{{ event.eventName }}</h2>
+    </div>
+    <div class="card-body">
+      <!-- Event Details -->
+      <p class="card-text">
+        <strong>Event Date:</strong> 
+        <span>{{ event.eventDate | date: 'dd-MM-yyyy' }}</span>
+      </p>
+      <p class="card-text">
+        <strong>Event Age:</strong> 
+        <span>{{ event.age }}</span>
+      </p>
+      <p class="card-text">
+        <strong>Description:</strong> 
+        <span>{{ event.description }}</span>
+      </p>
+
+      <!-- Associated Persons -->
+      <h4 class="mt-4">Associated Persons</h4>
+      <ul class="list-group">
+        <li *ngFor="let person of persons" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ person.firstName }} {{ person.lastName }}</span>
+          <a class="btn btn-outline-primary btn-sm" [href]="'/personInfo/' + person.id">
+            <i class="bi bi-info-circle"></i> Info
+          </a>
+        </li>
+      </ul>
+
+      <!-- Update Button -->
+      <div class="text-end mt-4">
+        <a class="btn btn-warning" [href]="'/eventUpdateForm/' + event.id">
+          <i class="bi bi-pencil-square"></i> Update Event
+        </a>
+      </div>
+    </div>
   </div>
-  
+</div>

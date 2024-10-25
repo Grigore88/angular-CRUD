@@ -1,123 +1,135 @@
-<div>
-    <h2>Person Details</h2>
-    <div>
-      <label *ngIf="person.id== undefined || person.id == null">ID: </label>
-      <span>{{person.id}}</span>
-    </div>
-    <div>
-      <label>First Name:</label>
-      <span> {{person.firstName}}</span>
-    </div>
-    <div>
-      <label>Last Name:</label>
-      <span> {{person.lastName}}</span>
-    </div>
-    <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null ">
-      <label>Maiden Name:</label>
-      <span> {{person.maidenName}}</span>
-    </div>
-    <div *ngIf="person.isAlive !== undefined && person.isAlive !== null ">
-      <label>Is Alive:</label>
-      <span> {{person.isAlive}}</span>
-    </div>
-    <div *ngIf="person.dateOfDeath == undefined || person.dateOfDeath == null">
-      <div>
-      <label>Date of Birth:</label>
-      <span> {{person.dateOfBirth | date:'dd-MM-yyyy'}}</span>
-      </div>
-      <div>
-        <label>Age:</label>
-        <span> {{person.age}}</span>
-      </div>
+<div class="container my-4 p-4 shadow rounded bg-light">
+  <h2 class="text-center mb-4">Person Details</h2>
+  
+  <div class="mb-3">
+    <label *ngIf="person.id== undefined || person.id == null" class="fw-bold">ID: </label>
+    <span class="text-muted">{{person.id}}</span>
+  </div>
 
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label class="fw-bold">First Name:</label>
+      <span class="text-muted"> {{person.firstName}}</span>
     </div>
-    <div *ngIf="person.dateOfDeath">
-      <span> {{person.dateOfBirth | date:'dd-MM-yyyy'}} - {{person.dateOfDeath | date:'dd-MM-YYYY'}} </span>
-      ({{ calculateAge(person.dateOfBirth, person.dateOfDeath) }} years old)
-      <div>
-        <label>Azi ar fi avut {{person.age}} de ani </label>
-      </div>
+    <div class="col-md-6">
+      <label class="fw-bold">Last Name:</label>
+      <span class="text-muted"> {{person.lastName}}</span>
     </div>
+  </div>
 
-    
+  <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null" class="mb-3">
+    <label class="fw-bold">Maiden Name:</label>
+    <span class="text-muted"> {{person.maidenName}}</span>
+  </div>
+
+  <div *ngIf="person.isAlive !== undefined && person.isAlive !== null" class="mb-3">
+    <label class="fw-bold">Is Alive:</label>
+    <span class="text-muted"> {{person.isAlive}}</span>
+  </div>
+
+  <div *ngIf="person.dateOfDeath == undefined || person.dateOfDeath == null" class="mb-3">
     <div>
-      <label>Zodie:</label>
-      <span> {{person.zodiac}}</span>
+      <label class="fw-bold">Date of Birth:</label>
+      <span class="text-muted"> {{person.dateOfBirth | date:'dd-MM-yyyy'}}</span>
     </div>
     <div>
-      <label *ngIf="person.phone== undefined || person.phone == null">Phone: </label>
-      <ul>
-        <li *ngFor="let phone of person.phone">{{phone}}</li>
-      </ul>
+      <label class="fw-bold">Age:</label>
+      <span class="text-muted"> {{person.age}}</span>
     </div>
-    <div *ngIf="person.email">
-      <label>Email:</label>
-      <span> {{person.email}}</span>
-    </div>
+  </div>
+
+  <div *ngIf="person.dateOfDeath" class="mb-3">
+    <span class="text-muted"> {{person.dateOfBirth | date:'dd-MM-yyyy'}} - {{person.dateOfDeath | date:'dd-MM-yyyy'}} </span>
+    ({{ calculateAge(person.dateOfBirth, person.dateOfDeath) }} years old)
     <div>
-      <label>Gender:</label>
-      <span> {{person.gender}}</span>
+      <label class="fw-bold">Azi ar fi avut {{person.age}} de ani</label>
     </div>
-    <div *ngIf="person.address && person.address.length!==0">
-      <label>Address:</label>
-      <ul>
-        <li *ngFor="let address of person.address">
-          {{address.street}}, {{address.postCode}} {{address.city}}, {{address.country}}
-        </li>
-      </ul>
-    </div>
-    <div *ngIf="person.carsList && person.carsList.length!==0">
-      <label>Cars List:</label>
-      <ul>
-        <li *ngFor="let car of person.carsList">
-          {{car.model}}, {{car.plateNumber}}
-        </li>
-      </ul>
-    </div>
-    <div *ngIf="person.relatives && person.relatives.length!==0">
-      <label>Relatives:</label>
-      <ul>
-        <li *ngFor="let relative of person.relatives">
-          {{relative.relativeType}} <a  [href]="'/personInfo/' + relative.relativePersonId" target="_blank">  {{getFullNameById(relative.relativePersonId)}}</a>
-        </li>
-      </ul>
-    </div>
-    <div *ngIf="person.comments">
-      <label>Comments:</label>
-      <span> {{person.comments}}</span>
-    </div>
-    <div *ngIf="person.eventsID">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <label>Evenimente: </label>
+  </div>
+
+  <div class="mb-3">
+    <label class="fw-bold">Zodiac:</label>
+    <span class="text-muted"> {{person.zodiac}}</span>
+  </div>
+
+  <div class="mb-3">
+    <label *ngIf="person.phone== undefined || person.phone == null" class="fw-bold">Phone: </label>
+    <ul class="list-unstyled">
+      <li *ngFor="let phone of person.phone" class="text-muted">{{phone}}</li>
+    </ul>
+  </div>
+
+  <div *ngIf="person.email" class="mb-3">
+    <label class="fw-bold">Email:</label>
+    <span class="text-muted"> {{person.email}}</span>
+  </div>
+
+  <div class="mb-3">
+    <label class="fw-bold">Gender:</label>
+    <span class="text-muted"> {{person.gender}}</span>
+  </div>
+
+  <div *ngIf="person.address && person.address.length!==0" class="mb-3">
+    <label class="fw-bold">Address:</label>
+    <ul class="list-unstyled">
+      <li *ngFor="let address of person.address" class="text-muted">
+        {{address.street}}, {{address.postCode}} {{address.city}}, {{address.country}}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="person.carsList && person.carsList.length!==0" class="mb-3">
+    <label class="fw-bold">Cars List:</label>
+    <ul class="list-unstyled">
+      <li *ngFor="let car of person.carsList" class="text-muted">
+        {{car.model}}, {{car.plateNumber}}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="person.relatives && person.relatives.length!==0" class="mb-3">
+    <label class="fw-bold">Relatives:</label>
+    <ul class="list-unstyled">
+      <li *ngFor="let relative of person.relatives" class="text-muted">
+        {{relative.relativeType}} 
+        <a [href]="'/personInfo/' + relative.relativePersonId" target="_blank" class="link-primary"> 
+          {{getFullNameById(relative.relativePersonId)}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="person.comments" class="mb-3">
+    <label class="fw-bold">Comments:</label>
+    <span class="text-muted"> {{person.comments}}</span>
+  </div>
+
+  <div *ngIf="person.eventsID" class="mb-4">
+    <label class="fw-bold">Events: </label>
+    <table class="table table-hover table-bordered">
+      <thead class="table-primary">
         <tr>
           <th>Name</th>
           <th>Date</th>
-          <th>Event age</th>
-          <th>  </th>
+          <th>Event Age</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
       </thead>
       <tbody>
-    
-      
-      <tr *ngFor="let eveimnet of eveniments">
-        
-         <td>{{eveimnet.eventName}}</td>
-         
-         <td>{{eveimnet.eventDate | date:'dd-MM-yyyy'}}</td>
-         <td>{{eveimnet.age}}</td>
-         <td>{{eveimnet.description}}</td>
-
-         <td >
-          <a  class="btn btn-outline-warning" [href]="'/eventInfo/' + eveimnet.id">Info</a>
-        </td> 
-      </tr>
-
-    
-  </tbody>
-  </table>
-</div>
-    <td >
-      <a  class="btn btn-outline-warning" [href]="'/personUpdateForm/' + person.id" >Update</a>
-    </td> 
+        <tr *ngFor="let event of eveniments">
+          <td>{{event.eventName}}</td>
+          <td>{{event.eventDate | date:'dd-MM-yyyy'}}</td>
+          <td>{{event.age}}</td>
+          <td>{{event.description}}</td>
+          <td>
+            <a class="btn btn-outline-warning" [href]="'/eventInfo/' + event.id">Info</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
+
+  <div class="text-end">
+    <a class="btn btn-outline-primary" [href]="'/personUpdateForm/' + person.id">Update</a>
+  </div>
+</div>

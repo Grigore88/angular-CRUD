@@ -25,8 +25,11 @@ relativePersonMap: Map<string, Person> = new Map();
   ngOnInit(){
    
     this.route.paramMap.subscribe(params =>{
-      this.id = params.get('id');
-      this.personService.getPersonById(this.id).subscribe({
+      this.id = params.get('id')
+      
+      })
+      
+    this.personService.getPersonById(this.id).subscribe({
         next: c => { this.person= c;
           
         },
@@ -36,8 +39,7 @@ relativePersonMap: Map<string, Person> = new Map();
           this.loadPersonsFromRelatives()
           console.log(this.relativePersonMap)
         }
-    
-    })})
+      })
   }
   loadPersonEvents(){
     if(this.person.eventsID){

@@ -18,7 +18,8 @@ export class PersonsComponent {
   public persons: Person[];
   public filtredPersons: Person[];
   monthValue: number | null;
-  searchText = new FormControl();
+  //searchText = new FormControl();
+  public searchText: string = '';     // Variable to hold the search input
   updatedListTime: string;
   today: Date = new Date();
   
@@ -30,7 +31,7 @@ export class PersonsComponent {
 
   this.getPersByMonthOfBirth(this.today.getMonth() + 1);
     
-    this.searchText.valueChanges
+   /* this.searchText.valueChanges
     .pipe(
       debounceTime(300), // Add a delay before triggering the search
       distinctUntilChanged() // Trigger the search only if the search term changes
@@ -38,14 +39,44 @@ export class PersonsComponent {
     .subscribe((searchText: string) => {
       // Call a method to perform the search based on the searchValue
       this.searchPersons(searchText);
-    });
+    }); */
    }
   
   clear(){
     this.persons=null;
   }
 
-  searchPersons(searchText: string) {
+   // Filter items based on search text
+   filterPersons(): void {
+    const lowerSearchText = this.searchText.toLowerCase();
+    this.filtredPersons = this.persons.filter(person => {
+      return (
+        person.firstName?.toLowerCase().includes(lowerSearchText) ||
+        person.lastName?.toLowerCase().includes(lowerSearchText) ||
+        person.maidenName?.toLowerCase().includes(lowerSearchText) ||
+        person.dateOfBirth?.toString().toLowerCase().includes(lowerSearchText)||
+        person.dateOfDeath?.toString().toLowerCase().includes(lowerSearchText)||
+        person.email?.toLocaleLowerCase().includes(lowerSearchText)||
+        person.gender?.toLocaleLowerCase().includes(lowerSearchText)||
+        person.age?.toString().includes(lowerSearchText) ||
+        person.zodiac?.toLowerCase().includes(lowerSearchText) ||
+        person.comments?.toLowerCase().includes(lowerSearchText) ||
+        (person.phone && person.phone.some(contact =>
+          contact.replace(/\s/g,'').toLowerCase().includes(lowerSearchText)))||
+          (person.carsList && person.carsList.some(car =>
+            car.model?.toLowerCase().includes(lowerSearchText) || // Search car model
+            car.plateNumber?.toLowerCase().includes(lowerSearchText) // Search car plate number
+          ))) ||
+          (person.address && person.address.some(address =>
+            address.street?.toLowerCase().includes(lowerSearchText) || // Search street
+            address.postCode?.toLowerCase().includes(lowerSearchText) || // Search postal code
+            address.city?.toLowerCase().includes(lowerSearchText) || // Search city
+            address.country?.toLowerCase().includes(lowerSearchText) // Search country
+          )) 
+    });
+  }
+
+  /* searchPersons(searchText: string) {
     this.filtredPersons = this.persons.filter((person: Person) => {
       // Perform case-insensitive search on relevant fields
       return (
@@ -72,14 +103,15 @@ export class PersonsComponent {
             address.country?.toLowerCase().includes(searchText.toLowerCase()) // Search country
           )) }
       );
-    }
+    } */
   
 
   public getPersByMonthOfBirth(month : number){
-    //if(this.monthValue==null||this.monthValue==undefined){}
-    
     this.personService.getPersonsByMonthOfBirth(month).subscribe({
-      next: c => {this.persons = c},
+      next: c => {
+        this.persons = c;
+        this.filtredPersons = c;
+      },
     error: error=>{console.log(error)},
     complete: ()=>{this.updatedListTime= new Date().toLocaleTimeString()}
     })
@@ -98,7 +130,10 @@ export class PersonsComponent {
   
   public getPersons(): void{
     this.personService.getAllPersons().subscribe({
-      next: c =>{this.persons = c},
+      next: c =>{
+        this.persons = c;
+        this.filtredPersons =c;
+      },
       error: error=>{alert('serverul nu raspunde')},
       complete: ()=>{this.updatedListTime= new Date().toLocaleTimeString()}
     })}

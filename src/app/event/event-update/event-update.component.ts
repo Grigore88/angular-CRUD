@@ -35,7 +35,7 @@ export class EventUpdateComponent implements OnInit {
       eventName: new FormControl(''),
       eventDate:new FormControl(''),
       description:new FormControl(''),
-      personsId : new FormArray([new FormControl('')])
+      personsId : new FormArray([])
       
     });
 
@@ -53,6 +53,7 @@ export class EventUpdateComponent implements OnInit {
         })},
         error: error=>{console.log(error)},
         complete: ()=>{
+          console.log(this.eventToUpdate)
           this.selectedPersons=this.personService.getPersonsByIdArray(this.eventToUpdate.personsId);
         this.originalPersonsId = this.eventToUpdate.personsId}
       })
@@ -75,7 +76,8 @@ export class EventUpdateComponent implements OnInit {
   const persons:Person[] = [];
   peronsId.forEach(personId => {
     this.personService.getPersonById(personId).subscribe((person: Person) => {
-      this.persons.push(person);
+      if(person){this.persons.push(person);}
+      
     });})
     return persons;
   }

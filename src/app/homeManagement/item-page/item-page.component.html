@@ -1,6 +1,9 @@
 <div class="container">
     <h2>Item List</h2>
-    
+    <!-- Search input -->
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchText" (input)="filterItems()" placeholder="Search items..." class="form-control"/>
+  </div>
     <div class="buttons">
         <td >
             <a  class="btn btn-outline-warning" [href]="'/itemForm/'">Add Item</a>
@@ -9,7 +12,7 @@
           <a  class="btn btn-outline-warning" [href]="'/managementTools/'">Management Tools</a>
       </td> 
       
-      <!--<button (click)="sortByPlace()">Sort by Place</button> -->
+   
     </div>
   
     <table class="table table-bordered table-striped">
@@ -23,7 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of items">
+        <tr *ngFor="let item of filteredItems">
           <td>{{ item.itemName }}</td>
           <td>{{ item.place?.placeName }}</td>
           <td >{{ item.expireDate | date:'dd-MM-YYYY'}}</td>

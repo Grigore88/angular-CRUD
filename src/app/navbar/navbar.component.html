@@ -1,11 +1,38 @@
-<nav class="nav">
-<a   [href]="'/persons/'" class="nav-link" aria-current="page" >Persons</a>
-<a   routerLink="/docs" class="nav-link" aria-current="page">Docs</a>
-<a   [href]="'/companies/'" class="nav-link" aria-current="page" >Companies</a>
-<a   [href]="'/eventPage/'" class="nav-link" aria-current="page" >Events</a>
-<a   [href]="'/itemPage/'" class="nav-link" aria-current="page" >Home Management</a>
-<!-- <a   routerLink="personForm" class="btn btn-primary">Add Person</a> -->
-<a   [href]="'/hours/'" class="nav-link">Hours Calculator</a>
-<!--<a routerLink="/login">Login</a> -->
-</nav>
-<router-outlet></router-outlet>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <div class="container">
+      <!-- Brand -->
+      <!-- <a class="navbar-brand" href="/">MyApp</a> -->
+  
+      <!-- Toggler/collapsible Button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Navbar links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a [routerLink]="['/persons']" class="nav-link" aria-current="page">Persons</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/docs']" class="nav-link" aria-current="page">Docs</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/companies']" class="nav-link" aria-current="page">Companies</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/eventPage']" class="nav-link" aria-current="page">Events</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/itemPage']" class="nav-link" aria-current="page">Home Management</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/hours']" class="nav-link">Hours Calculator</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <router-outlet></router-outlet>
+  

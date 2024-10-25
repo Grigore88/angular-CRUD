@@ -1,116 +1,61 @@
-<nav class="nav">
-<a  class="btn btn-outline-primary mb-2" (click)="getPersons()" >List All Persons</a>
-<a   [href]="'/personForm/'" class="btn btn-outline-warning mb-2" >Add Person</a>
-   
-    <label for="sortMonth">Select a Month:</label>
-    <select id="sortMonth" [(ngModel)]="monthValue" (change)="getPersByMonthOfBirth(monthValue)">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+      <div >
+          <a class="btn btn-primary" (click)="getPersons()">List All Persons</a>
+          <a class="btn btn-warning ms-2" [href]="'/personForm/'" >➕ Add Person</a>
+      </div>
+      <div class="search-bar my-3">
+        <input type="text" [(ngModel)]="searchText" (input)="filterPersons()" placeholder="Search persons" class="form-control shadow-sm p-2"/>
+      </div>
+      <div class="d-flex align-items-center">
+          <label for="sortMonth" class="me-2 mb-0">📅 Select a Month:</label>
+          <select id="sortMonth" [(ngModel)]="monthValue" (change)="getPersByMonthOfBirth(monthValue)" class="form-select w-auto">
+              <option *ngFor="let month of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="month">{{ month }}</option>
+          </select>
+      </div>
       
-    </select>
-   <!--<button  class="btn btn-secondary mb-2" (click)="getPersByMonthOfBirth()" >By birthday month</button> -->
-  
-   <input type="text" [formControl]="searchText" placeholder="Search person" class="input mb-2"  />
-  
-  
-  <button  class="btn btn-outline-danger mb-2" (click)="clear()" >Clear</button>
 
-</nav>
-<span [textContent]="getUpdatedListTime()">  </span>
-<div *ngFor="let person of filtredPersons">
-  <!-- Display company details here -->
-  <td>{{person.firstName}}</td>
-  <td >
-    <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>
-    <div *ngIf="person.maidenName === undefined || person.maidenName === '' || person.maidenName === null">{{ person.lastName }}</div>
-  </td> 
-  <td>{{person.dateOfBirth}}</td>
-  <td >
-    <a  class="btn btn-outline-warning" [href]="'/personInfo/' + person.id">Info</a>
-  </td> 
+
+  </div>
+
+
+<!-- <span class="text-muted mb-3 d-block">{{ getUpdatedListTime() }}</span> -->
+
+<div class="table-responsive">
+  <table class="table table-hover table-striped shadow-sm">
+      <thead class="table-dark">
+          <tr>
+              <th>First Name</th>
+              <th>Last Name (Maiden Name)</th>
+              <th>Date of Birth</th>
+              <th>Age</th>
+              <th>Info</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let person of filtredPersons" [ngClass]="{'table-success': isBirthdayToday(person.dateOfBirth)}">
+              <td>{{ person.firstName }}</td>
+              <td>
+                  <div *ngIf="person.maidenName">{{ person.lastName }} ({{ person.maidenName }})</div>
+                  <div *ngIf="!person.maidenName">{{ person.lastName }}</div>
+              </td>
+              <td>{{ person.dateOfBirth | date:'dd-MM-YYYY' }}</td>
+              <td>{{ person.age }}</td>
+              <td>
+                  <a class="btn btn-info" [href]="'/personInfo/' + person.id">
+                      <i class="bi bi-info-circle"></i> Info
+                  </a>
+              </td>
+              <td>
+                  <button class="btn btn-danger" (click)="deletePeroson(person.id)">
+                      <i class="bi bi-trash"></i> Delete
+                  </button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
 </div>
-<table class="table table-bordered table-striped">
 
-    <thead></thead>
-    <tbody>
-        <tr *ngFor="let person of persons" [ngClass]="{'table-success': isBirthdayToday(person.dateOfBirth)}">
-            <td>{{person.firstName}}</td>
-            <td >
-              <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>
-              <div *ngIf="person.maidenName === undefined || person.maidenName === '' || person.maidenName === null">{{ person.lastName }}</div>
-            </td> 
-            <td>{{person.dateOfBirth | date:'dd-MM-YYYY'}}</td>
-            <td>{{person.age}}</td>
-          <!-- <div class="zippy">
-            
-              <h2>{{ person.firstName }} {{ person.lastName }}</h2>
-              <p>Date of Birth: {{ person.dateOfBirth | date }}</p>
-              <p>Phone: {{ person.phone[0] }}</p>
-              <p>Email: {{ person.email }}</p>
-              <p>Gender: {{ person.gender }}</p>
-              <p>Address:</p>
-            
-              <ul *ngFor="let address of person.address">
-                <li>{{ address.street }}
-                {{ person.address[0].postCode }} {{ person.address[0].city }}
-                {{ person.address[0].country }}
-              </li>
-            </ul>
-            
-              <p>Cars:</p>
-              <ul>
-                <li *ngFor="let car of person.carsList">{{ car.model }} - {{ car.plateNumber }}</li>
-              </ul>
-            
-
-           </div>-->
-           <!--<td>
-               <a  class="btn btn-outline-warning" [routerLink]="['personUpdateForm',person.id]">Update</a>
-             </td>--> 
-             <!--<td >
-               <a  class="btn btn-outline-warning" [href]="'/personUpdateForm/' + person.id">Update</a>
-             </td> -->
-             <td >
-              <a  class="btn btn-outline-warning" [href]="'/personInfo/' + person.id">Info</a>
-            </td> 
-            <td >
-              <button  class="btn btn-outline-danger" (click)="deletePeroson(person.id)">Delete</button>
-            </td> 
-             
-        </tr>
-    </tbody>
-    <router-outlet></router-outlet>
-</table>
-
-
-
-<!--<ul>
-    <li *ngFor="let person of persons">
-      <h2>{{ person.firstName }} {{ person.lastName }}</h2>
-      <p>Date of Birth: {{ person.dateOfBirth | date }}</p>
-      <p>Phone: {{ person.phone[0] }}</p>
-      <p>Email: {{ person.email }}</p>
-      <p>Gender: {{ person.gender }}</p>
-      <p>Address:</p>
-      <ul>
-        <li>{{ person.address[0].street }}</li>
-        <li>{{ person.address[0].postCode }} </li>
-        <li>{{ person.address[0].city }}</li>
-        <li>{{ person.address[0].country }}</li>
-      </ul>
-      <p>Cars:</p>
-      <ul *ngFor="let car of person.carsList">
-        <li >{{ car.model }} - {{ car.plateNumber }}</li>
-      </ul>
-    </li>
-  </ul> -->
+<router-outlet></router-outlet>
+</div>
