@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 import { AppComponent } from './app.component';
@@ -110,7 +111,7 @@ import { PlaceUpdateFormComponent } from './homeManagement/place-update-form/pla
     
 
   ],
-  providers: [
+  providers: [ 
     
   ],
   bootstrap: [AppComponent],

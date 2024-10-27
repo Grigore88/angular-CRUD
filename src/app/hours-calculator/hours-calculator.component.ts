@@ -1,6 +1,6 @@
 import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { Component } from '@angular/core';
-import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-hours-calculator',
