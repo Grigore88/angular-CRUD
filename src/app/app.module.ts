@@ -68,8 +68,6 @@ import { PlaceUpdateFormComponent } from './homeManagement/place-update-form/pla
     ManagementToolsPageComponent,
     LocationUpdateFormComponent,
     PlaceUpdateFormComponent
-
-
   ],
   imports: [
     BrowserModule,
@@ -77,39 +75,38 @@ import { PlaceUpdateFormComponent } from './homeManagement/place-update-form/pla
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot([
-      {path: '', component: AppComponent, children:[
-        {path: '', component: NavbarComponent, children:[
-          {path: 'personUpdateForm/:id', component: PersonUpdateFormComponent},
-          {path: 'personForm', component: PersonFormComponent},
-          {path : 'persons', component: PersonsComponent},
-          {path: 'hours', component: HoursCalculatorComponent},
-          {path: 'personInfo/:id', component: PersonInfoComponent},
-          {path: 'docs', component: DocPageComponent},
-          {path: 'docForm', component: DocFormComponent},
-          {path: 'docUpdateForm/:id', component:DocUpdateFormComponent},
-          {path: 'companies', component: CompanyPageComponent},
-          {path: 'companyForm', component: CompanyFormComponent},
-          {path: 'companyInfo/:id', component: CompanyInfoComponent},
-          {path: 'companyUpdateForm/:id', component: CompanyUpdateFormComponent},
+      { path: '', component: AppComponent, children: [
+        { path: '', component: NavbarComponent, children: [
+          { path: 'persons', component: PersonsComponent },
+          { path: 'personForm', component: PersonFormComponent },
+          { path: 'personUpdateForm/:id', component: PersonUpdateFormComponent },
+          { path: 'personInfo/:id', component: PersonInfoComponent },
+          { path: 'hours', component: HoursCalculatorComponent },
+          { path: 'docs', component: DocPageComponent },
+          { path: 'docForm', component: DocFormComponent },
+          { path: 'docUpdateForm/:id', component: DocUpdateFormComponent },
+          { path: 'companies', component: CompanyPageComponent },
+          { path: 'companyForm', component: CompanyFormComponent },
+          { path: 'companyInfo/:id', component: CompanyInfoComponent },
+          { path: 'companyUpdateForm/:id', component: CompanyUpdateFormComponent },
           { path: 'login', component: LoginComponent },
-          {path: 'eventForm', component: EventFormComponent},
-          {path: 'eventUpdateForm/:id' , component: EventUpdateComponent},
-          {path: 'eventPage', component: EventPageComponent},
-          {path: 'eventInfo/:id', component: EventInfoComponent },
-          {path: 'itemPage', component: ItemPageComponent},
-          {path: 'itemForm', component: ItemFormComponent },
-          {path: 'locationForm', component: LocationFormComponent },
-          {path: 'placeForm', component: PlaceFormComponent },
-          {path: 'itemInfo/:id', component: ItemInfoComponent },
-          {path: 'itemUpdateForm/:id', component: ItemUpdateFormComponent},
-          {path: 'managementTools', component: ManagementToolsPageComponent},
-          {path: 'locationupdateForm/:id', component: LocationUpdateFormComponent},
-          {path: 'placeUpdateForm/:id', component: PlaceUpdateFormComponent}
-          ]}
-       ]},
-      ])
-    
-
+          { path: 'eventPage', component: EventPageComponent },
+          { path: 'eventForm', component: EventFormComponent },
+          { path: 'eventUpdateForm/:id', component: EventUpdateComponent },
+          { path: 'eventInfo/:id', component: EventInfoComponent },
+          { path: 'itemPage', component: ItemPageComponent },
+          { path: 'itemForm', component: ItemFormComponent },
+          { path: 'itemInfo/:id', component: ItemInfoComponent },
+          { path: 'itemUpdateForm/:id', component: ItemUpdateFormComponent },
+          { path: 'managementTools', component: ManagementToolsPageComponent },
+          { path: 'locationForm', component: LocationFormComponent },
+          { path: 'locationUpdateForm/:id', component: LocationUpdateFormComponent },
+          { path: 'placeForm', component: PlaceFormComponent },
+          { path: 'placeUpdateForm/:id', component: PlaceUpdateFormComponent },
+          { path: '**', redirectTo: 'persons' } // Optional 404 handling
+        ]}
+      ]},
+    ])
   ],
   providers: [ 
     

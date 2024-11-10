@@ -121,23 +121,21 @@
         <button type="button" (click)="addCar()" class="btn btn-primary">Add another Car</button>
       </div>
 
-      <div class="form-group"> <!-- search person and add persons.id with form down -->
-        <label>Select Persons</label>
-        <input type="text" [formControl]="searchText" placeholder="Search person" class="input mb-2"  />
-        <div *ngFor="let person of filtredPersons">
-            <!-- Display company details here -->
-            <td>{{person.firstName}}</td>
-            <td >
-              <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>
-              <div *ngIf="person.maidenName === undefined || person.maidenName === '' || person.maidenName === null">{{ person.lastName }}</div>
-            </td> 
-            <td>{{person.dateOfBirth}}</td>
-            
-            <td >
-              <button  type="button" class="btn btn-outline-warning" (click)="addPerson(person)" >Add</button>
-            </td> 
+      <div class="form-group mb-3">
+        <input type="text" [formControl]="searchText" placeholder="Search person" class="form-control mb-2" />
+        <div *ngIf="filtredPersons.length > 0" class="list-group">
+          <div *ngFor="let person of filtredPersons" class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong>{{ person.firstName }}</strong> 
+              <span *ngIf="person.maidenName">{{ person.lastName }} ({{ person.maidenName }})</span>
+              <span *ngIf="!person.maidenName">{{ person.lastName }}</span>
+              <small class="text-muted ms-2">DOB: {{ person.dateOfBirth | date: 'longDate' }}</small>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-warning" (click)="addPerson(person)">Add</button>
           </div>
-    </div>
+        </div>
+        <div *ngIf="filtredPersons.length === 0" class="text-muted mt-2">No persons found.</div>
+      </div>
     
 
     <div formArrayName="relatives"> <!-- get forms with person.id and you must add relationType -->

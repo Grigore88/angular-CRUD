@@ -91,7 +91,7 @@
     <ul class="list-unstyled">
       <li *ngFor="let relative of person.relatives" class="text-muted">
         {{relative.relativeType}} 
-        <a [href]="'/personInfo/' + relative.relativePersonId" target="_blank" class="link-primary"> 
+        <a [routerLink]="['/personInfo', relative.relativePersonId]" target="_blank" class="link-primary"> 
           {{getFullNameById(relative.relativePersonId)}}
         </a>
       </li>
@@ -122,7 +122,7 @@
           <td>{{event.age}}</td>
           <td>{{event.description}}</td>
           <td>
-            <a class="btn btn-outline-warning" [href]="'/eventInfo/' + event.id">Info</a>
+            <a class="btn btn-outline-warning" [routerLink]="['/eventInfo', event.id]">Info</a>
           </td>
         </tr>
       </tbody>
@@ -130,6 +130,6 @@
   </div>
 
   <div class="text-end">
-    <a class="btn btn-outline-primary" [href]="'/personUpdateForm/' + person.id">Update</a>
+    <a class="btn btn-outline-primary" [routerLink]="['/personUpdateForm', person.id]">Update</a>
   </div>
 </div>

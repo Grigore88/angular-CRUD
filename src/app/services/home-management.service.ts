@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { Item } from '../models/item';
 import { Location } from '../models/location';
 import { Place } from '../models/place';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeManagementService {
 
-  private apiUrl = 'http://localhost:8080/api'; // Adjust to your API base URL
+  private apiUrl = `${environment.API_BASE_URL}/api`;
 
   constructor(private http: HttpClient) { }
 

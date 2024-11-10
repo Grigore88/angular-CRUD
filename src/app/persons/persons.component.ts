@@ -31,15 +31,7 @@ export class PersonsComponent {
 
   this.getPersByMonthOfBirth(this.today.getMonth() + 1);
     
-   /* this.searchText.valueChanges
-    .pipe(
-      debounceTime(300), // Add a delay before triggering the search
-      distinctUntilChanged() // Trigger the search only if the search term changes
-    )
-    .subscribe((searchText: string) => {
-      // Call a method to perform the search based on the searchValue
-      this.searchPersons(searchText);
-    }); */
+   
    }
   
   clear(){
@@ -117,16 +109,7 @@ export class PersonsComponent {
     })
   
   }
-  /*public getPersonsBySearchText(){
-    if(!this.searchText){}
-    else{
-      this.personService.getPersonsBySearch(this.searchText).subscribe({
-        next: c => {this.persons = c},
-    error: error=>{console.log(error)},
-    complete: ()=>{this.updatedListTime= new Date().toLocaleTimeString()}
-      })
-    }
-  }*/
+  
   
   public getPersons(): void{
     this.personService.getAllPersons().subscribe({

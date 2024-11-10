@@ -23,8 +23,8 @@ FROM nginx:alpine
 COPY --from=build /app/dist/primul /usr/share/nginx/html
 
 # Copy the Angular build output to the Nginx html directory
-# COPY --from=build /app/dist/primul /usr/share/nginx/html
-
+   COPY --from=build /app/dist/primul /usr/share/nginx/html
+   #COPY nginx.conf /etc/nginx/nginx.conf
 # Expose port 80
 EXPOSE 80
 

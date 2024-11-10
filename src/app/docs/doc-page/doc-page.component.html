@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let doc of docs" [class.table-danger]="doc.daysUntilExpire < 30">
+        <tr *ngFor="let doc of docs" [class.table-danger]="doc.daysUntilExpire < 0">
           <td>{{ doc.docType }}</td>
           <td>{{ doc.docNumber }}</td>
           <td>{{ doc.expireDate | date: 'dd-MM-yyyy' }}</td>

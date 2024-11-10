@@ -4,13 +4,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpStatusCode} from '@angular/common/http';
 import { Person } from '../person';
 import { Observable, forkJoin } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
-  private url = 'http://localhost:8080/person'
+  private url = `${environment.API_BASE_URL}/person`;
  
   constructor(private http: HttpClient, private authService:AuthService) { }
 

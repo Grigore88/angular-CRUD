@@ -1,16 +1,24 @@
+
+
 import { Observable } from 'rxjs';
 import { Doc } from './../Doc';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocServiceService {
-  private url:string = 'http://localhost:8080/docs'
+ private url = `${environment.API_BASE_URL}/docs`;
 
   constructor(private http:HttpClient) {}
-
+  getURL():string {
+    const url = `${this.url}`;
+    return url;
+  }
   getAllDocs():Observable<Doc[]>{
     return this.http.get<Doc[]>(this.url);
   }

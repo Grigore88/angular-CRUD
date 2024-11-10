@@ -1,48 +1,66 @@
-<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="eventName">Event Name</label>
-      <input type="text" id="eventName" formControlName="eventName" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="eventDate">Event Date</label>
-      <input type="date" id="eventDate" formControlName="eventDate" class="form-control">
-    </div>
-    <div class="form-group">
-        <label>Select Persons</label>
-        <input type="text" [formControl]="searchText" placeholder="Search person" class="input mb-2"  />
-        <div *ngFor="let person of filtredPersons">
-            <!-- Display company details here -->
-            <td>{{person.firstName}}</td>
-            <td >
-              <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>
-              <div *ngIf="person.maidenName === undefined || person.maidenName === '' || person.maidenName === null">{{ person.lastName }}</div>
-            </td> 
-            <td>{{person.dateOfBirth}}</td>
-            <td >
-              <button  type="button" class="btn btn-outline-warning" (click)="addPerson(person)" >Add</button>
-            </td> 
-          </div>
-    </div>
-    
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="p-3">
+  <h3 class="mb-4">Event Details</h3>
 
-    <div class="form-group">
-        <label>Select Persons</label>
-        
-        <div *ngFor="let person of selectedPersons">
-            <!-- Display company details here -->
-            <td>{{person.firstName}}</td>
-            <td >
-              <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>
-              <div *ngIf="person.maidenName === undefined || person.maidenName === '' || person.maidenName === null">{{ person.lastName }}</div>
-            </td> 
-            <td>{{person.dateOfBirth}}</td>
-            <td >
-              <button  type="button" class="btn btn-outline-danger" (click)="removeSelectedPerson(person)" >Remove</button>
-            </td> 
-          </div>
-        </div>    
-      
-   
-    <button type="submit" class="btn btn-primary">Save Event</button>
-  </form>
-  <div>{{eventForm.value | json}}</div>
+  <!-- Event Name -->
+  <div class="form-group mb-3">
+    <label for="eventName">Event Name</label>
+    <input type="text" id="eventName" formControlName="eventName" class="form-control" placeholder="Enter event name">
+  </div>
+
+  <!-- Event Date -->
+  <div class="form-group mb-3">
+    <label for="eventDate">Event Date</label>
+    <input type="date" id="eventDate" formControlName="eventDate" class="form-control">
+  </div>
+
+  <!-- Event Description -->
+  <div class="form-group mb-3">
+    <label for="description">Description</label>
+    <textarea id="description" formControlName="description" class="form-control" rows="3" placeholder="Enter event description"></textarea>
+  </div>
+
+
+
+  <!-- Select Persons -->
+  <h4 class="mt-4">Add Persons</h4>
+  
+  <div class="form-group mb-3">
+    <input type="text" [formControl]="searchText" placeholder="Search person" class="form-control mb-2" />
+    <div *ngIf="filtredPersons.length > 0" class="list-group">
+      <div *ngFor="let person of filtredPersons" class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ person.firstName }}</strong> 
+          <span *ngIf="person.maidenName">{{ person.lastName }} ({{ person.maidenName }})</span>
+          <span *ngIf="!person.maidenName">{{ person.lastName }}</span>
+          <small class="text-muted ms-2">DOB: {{ person.dateOfBirth | date: 'longDate' }}</small>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-warning" (click)="addPerson(person)">Add</button>
+      </div>
+    </div>
+    <div *ngIf="filtredPersons.length === 0" class="text-muted mt-2">No persons found.</div>
+  </div>
+
+  <!-- Selected Persons -->
+  <h4 class="mt-4">Selected Persons</h4>
+  
+  <div *ngIf="selectedPersons.length > 0" class="list-group mb-3">
+    <div *ngFor="let person of selectedPersons" class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <strong>{{ person.firstName }}</strong> 
+        <span *ngIf="person.maidenName">{{ person.lastName }} ({{ person.maidenName }})</span>
+        <span *ngIf="!person.maidenName">{{ person.lastName }}</span>
+        <small class="text-muted ms-2">DOB: {{ person.dateOfBirth | date: 'longDate' }}</small>
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeSelectedPerson(person)">Remove</button>
+    </div>
+  </div>
+  <div *ngIf="selectedPersons.length === 0" class="text-muted mb-3">No persons selected.</div>
+
+  <!-- Save Button -->
+  <button type="submit" class="btn btn-primary mt-3">Save Event</button>
+
+  <!-- Form Debug Output -->
+  <div class="mt-4">
+    <pre>{{ eventForm.value | json }}</pre>
+  </div>
+</form>

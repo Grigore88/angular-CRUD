@@ -24,7 +24,7 @@
       <ul class="list-group">
         <li *ngFor="let person of persons" class="list-group-item d-flex justify-content-between align-items-center">
           <span>{{ person.firstName }} {{ person.lastName }}</span>
-          <a class="btn btn-outline-primary btn-sm" [href]="'/personInfo/' + person.id">
+          <a class="btn btn-outline-primary btn-sm" [routerLink]="['/personInfo', person.id]">
             <i class="bi bi-info-circle"></i> Info
           </a>
         </li>
@@ -32,7 +32,7 @@
 
       <!-- Update Button -->
       <div class="text-end mt-4">
-        <a class="btn btn-warning" [href]="'/eventUpdateForm/' + event.id">
+        <a class="btn btn-warning" [routerLink]="['/eventUpdateForm', event.id]">
           <i class="bi bi-pencil-square"></i> Update Event
         </a>
       </div>

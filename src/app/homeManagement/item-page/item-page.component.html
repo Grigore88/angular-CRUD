@@ -6,10 +6,10 @@
   </div>
     <div class="buttons">
         <td >
-            <a  class="btn btn-outline-warning" [href]="'/itemForm/'">Add Item</a>
+            <a  class="btn btn-outline-warning" routerLink="/itemForm">Add Item</a>
         </td> 
         <td >
-          <a  class="btn btn-outline-warning" [href]="'/managementTools/'">Management Tools</a>
+          <a  class="btn btn-outline-warning" routerLink="/managementTools">Management Tools</a>
       </td> 
       
    
@@ -34,7 +34,7 @@
           *ngIf="item.expireDate !== undefined && item.expireDate">{{item.daysUntilExpire}}</td>
           
           <td >
-            <a  class="btn btn-outline-warning" [href]="'/itemInfo/' + item.id">Info</a>
+            <a  class="btn btn-outline-warning" [routerLink]="['/itemInfo', item.id]">Info</a>
           </td> 
         
         <td >

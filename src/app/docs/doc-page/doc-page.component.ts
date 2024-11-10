@@ -14,6 +14,7 @@ public docs:Doc[];
 
 ngOnInit(): void {
   this.getDocs();
+  console.log(this.docDervice.getURL())
   
 }
 

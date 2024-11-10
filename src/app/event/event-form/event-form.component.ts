@@ -37,7 +37,7 @@ export class EventFormComponent implements OnInit {
     )
     .subscribe((searchText: string) => {
       // Call a method to perform the search based on the searchValue
-      this.searchPersons(searchText);
+      this.filterPersons(searchText);
     });
   }
 
@@ -63,15 +63,27 @@ export class EventFormComponent implements OnInit {
       personList.splice(indexToRemove, 1);
     }
   }
-  searchPersons(searchText: string) {
-    this.filtredPersons = this.persons.filter((person: Person) => {
-      // Perform case-insensitive search on relevant fields
-      return (
-        person.firstName?.toLowerCase().includes(searchText.toLowerCase()) ||
-        person.lastName?.toLowerCase().includes(searchText.toLowerCase()) ||
-        person.maidenName?.toLowerCase().includes(searchText.toLowerCase())  )  }
-      );
+  filterPersons(text: string) {
+    if (!text) {
+      this.filtredPersons = [];
+      return;
     }
+    const searchTextLower = text.toLowerCase();
+    this.filtredPersons = this.persons.filter((person) =>
+      person.firstName.toLowerCase().includes(searchTextLower) ||
+      person.lastName.toLowerCase().includes(searchTextLower)
+    );
+
+
+  
+    }
+    highlightMatch(text: string, searchText: string): string {
+      if (!searchText) return text;
+      const regex = new RegExp(`(${searchText})`, 'gi');
+      return text.replace(regex, '<mark>$1</mark>');
+    }
+    
+
     addPerson(person:Person){
       this.selectedPersons.push(person);
       this.removePersonFromList(person, this.filtredPersons);

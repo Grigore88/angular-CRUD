@@ -2,8 +2,8 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
       <div >
           <a class="btn btn-primary" (click)="getPersons()">List All Persons</a>
-          <a class="btn btn-warning ms-2" [href]="'/personForm/'" >➕ Add Person</a>
-      </div>
+          <a class="btn btn-warning ms-2" routerLink="/personForm" >➕ Add Person</a>
+      </div>     
       <div class="search-bar my-3">
         <input type="text" [(ngModel)]="searchText" (input)="filterPersons()" placeholder="Search persons" class="form-control shadow-sm p-2"/>
       </div>
@@ -43,7 +43,7 @@
               <td>{{ person.dateOfBirth | date:'dd-MM-YYYY' }}</td>
               <td>{{ person.age }}</td>
               <td>
-                  <a class="btn btn-info" [href]="'/personInfo/' + person.id">
+                  <a class="btn btn-info" [routerLink]="['/personInfo', person.id]">
                       <i class="bi bi-info-circle"></i> Info
                   </a>
               </td>

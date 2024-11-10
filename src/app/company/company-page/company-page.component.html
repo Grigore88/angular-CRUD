@@ -1,5 +1,5 @@
 <nav class="nav">
-    <a   [href]="'/companyForm/'" class="btn btn-outline-warning mb-2" >Add Company</a>
+    <a   [routerLink]="['/companyForm']" class="btn btn-outline-warning mb-2" >Add Company</a>
     <input type="text" [formControl]="searchTerm" placeholder="Search companies" class="input mb-2"  />
     <button  class="btn btn-outline-warning mb-2" (click)="refreshLocalComapanies()" >Update from server</button>
     <button  class="btn btn-outline-danger mb-2" (click)="clear()" >Clear local memory</button>
@@ -13,7 +13,7 @@
                 <td>{{company.postCode}}</td>
                 <td>{{company.street + " " +company.streetNumber}}</td>
                  <td >
-                  <a  class="btn btn-outline-warning" [href]="'/companyInfo/' + company.id">Info</a>
+                  <a  class="btn btn-outline-warning" [routerLink]="['/companyInfo', company.id]" >Info</a>
                  </td> 
       </div>
     <table class="table table-bordered table-striped">
@@ -34,7 +34,7 @@
                 <td>{{company.postCode}}</td>
                 <td>{{company.street + " " +company.streetNumber}}</td>
                  <td >
-                  <a  class="btn btn-outline-warning" [href]="'/companyInfo/' + company.id">Info</a>
+                  <a  class="btn btn-outline-warning" [routerLink]="['/companyInfo', company.id]">Info</a>
                  </td> 
                  
             </tr>
