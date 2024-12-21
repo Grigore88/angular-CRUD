@@ -1,4 +1,5 @@
-
+import { Car } from './../car';
+import { Address } from './../address';
 import { PersonService } from './../services/person.service';
 import { Component } from '@angular/core';
 import { FormGroup ,FormBuilder,FormArray, FormControl,Validators} from '@angular/forms';
@@ -28,7 +29,7 @@ export class PersonFormComponent {
     private personService: PersonService,
     private router: Router ) { }
   ngOnInit() {
-    this.initializeForm()
+    this.initializeForm();
 
     this.loadPersons();
    // 
@@ -47,24 +48,24 @@ export class PersonFormComponent {
   initializeForm(){
     this.myForm = new FormGroup({
       //id: new FormControl(''),
-      firstName: new FormControl('',Validators.required),
-      lastName: new FormControl('',Validators.required),
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
       maidenName: new FormControl(''),
-      dateOfBirth: new FormControl('',Validators.required),
+      dateOfBirth: new FormControl(''),
       dateOfDeath: new FormControl(''),
       isAlive: new FormControl(''),
       email: new FormControl(''),
-      gender: new FormControl('',Validators.required),
+      gender: new FormControl(''),
       phone: new FormArray([
-        new FormControl('')
+       // new FormControl('')
       ]),
       address: new FormArray([
-        new FormGroup({
-          street: new FormControl(''),
-          postCode: new FormControl(''),
-          city: new FormControl(''),
-          country: new FormControl('')
-        })
+       // new FormGroup({
+        //  street: new FormControl(''),
+       //   postCode: new FormControl(''),
+       //   city: new FormControl(''),
+       //   country: new FormControl('')
+       // })
       ]),
       relatives: new FormArray([
         //new FormGroup({
@@ -76,18 +77,16 @@ export class PersonFormComponent {
 
       ]),
       carsList: new FormArray([
-        new FormGroup({
-          model: new FormControl(''),
-          plateNumber: new FormControl('')
-        })
+       // new FormGroup({
+       //   model: new FormControl(''),
+        //  plateNumber: new FormControl('')
+       // })
       ]),
       comments: new FormControl('')
     });
   }
 
-  get phoneForms() {
-    return this.myForm.get('phone') as FormArray;
-  }
+  get phoneForms() {return this.myForm.get('phone') as FormArray;}
 
   addPhone() {
     const phone = new FormControl('');
@@ -102,7 +101,7 @@ export class PersonFormComponent {
     return this.myForm.get('address') as FormArray;
   }
 
-  addAddress() {
+  addAddress(addres?: Address) {
     const address = new FormGroup({
       street: new FormControl(''),
       postCode: new FormControl(''),

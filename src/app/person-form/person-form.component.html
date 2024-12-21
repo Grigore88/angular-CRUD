@@ -1,48 +1,50 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <div class="row" >
-    <div class="col">
-     <label for="firstName" >First Name:</label>
-     <input type="text" id="firstName" formControlName="firstName" class="form-control">
-     <div *ngIf="myForm.get('firstName').invalid" class="text-danger">
+   <div class="col">
+    <label for="firstName" >First Name:</label>
+    <input type="text" id="firstName" formControlName="firstName" class="form-control" required>
+    <div *ngIf="myForm.get('firstName').invalid" class="text-danger">
       First name is required
     </div>
-    </div>
-    <div class="col">
-     <label for="lastName">Last Name:</label>
-     <input type="text" id="lastName" formControlName="lastName" class="form-control">
-     <div *ngIf="myForm.get('lastName').invalid" class="text-danger">
+   </div>
+   <div class="col">
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" formControlName="lastName" class="form-control" required>
+    <div *ngIf="myForm.get('lastName').invalid" class="text-danger">
       Last name is required
     </div>
-    </div>
-    <div class="col">
-      <label for="maidenName">Maiden Name:</label>
-      <input type="text" id="maidenName" formControlName="maidenName" class="form-control">
-     </div>
    </div>
-  <div class="row" >
    <div class="col">
-    <label for="dateOfBirth">Date of Birth:</label>
-    <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="form-control col-4 mb-4" required>
-    <div *ngIf="myForm.get('dateOfBirth').invalid" class="text-danger">
+    <label for="maidenName">Maiden Name:</label>
+    <input type="text" id="maidenName" formControlName="maidenName" class="form-control">
+   </div>
+  </div>
+
+  <div class="row" >
+    <div class="col">
+     <label for="dateOfBirth">Date of Birth:</label>
+     <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="form-control col-4 mb-4" required>
+     <div *ngIf="myForm.get('dateOfBirth').invalid" class="text-danger">
       Date of Birth is required
     </div>
+    </div>
+   <div class="col">
+     <label for="dateOfDeath">Date of Death:</label>
+     <input type="date" id="dateOfDeath" formControlName="dateOfDeath" class="form-control col-4 mb-4" >
    </div>
-  <div class="col">
-    <label for="dateOfDeath">Date of Death:</label>
-    <input type="date" id="dateOfDeath" formControlName="dateOfDeath" class="form-control col-4 mb-4" >
-  </div>
-  <div class="col">
-    <br>
-    <label for="isAlive">Is Alive:</label>
-    <select id="isAlive" formControlName="isAlive" >
-      <option value="YES">Yes</option>
-      <option value="NO">No</option>
-    </select>
-  </div>
-</div>
-<div>
+   <div class="col">
+     <br>
+     <label for="isAlive">Is Alive:</label>
+     <select id="isAlive" formControlName="isAlive">
+       <option value="YES">Yes</option>
+       <option value="NO">No</option>
+     </select>
+   </div>
+ </div>
+
+ <div>
   <label for="gender">Gender:</label>
-  <select id="gender" formControlName="gender" required >
+  <select id="gender" formControlName="gender" required>
     <option value="MALE">Male</option>
     <option value="FEMALE">Female</option>
   </select>
@@ -50,9 +52,10 @@
     Gender is required
   </div>
 </div>
+
   <div>
     <label for="email">Email:</label>
-    <input type="email" id="email" formControlName="email" class="form-control col-4 mb-4">
+    <input type="email" id="email" formControlName="email" class="form-control col-4 mb-4" >
   </div>
   
   <div formArrayName="phone">
@@ -68,8 +71,8 @@
       </div>
     </div>
     <button type="button" (click)="addPhone()" class="btn btn-primary">Add another Phone</button>
-
-    </div>
+    
+      </div>
       <div formArrayName="address">
         <div *ngFor="let address of addressForms.controls; let i=index">
           <div [formGroupName]="i" class="row">
@@ -119,27 +122,44 @@
         <button type="button" (click)="addCar()" class="btn btn-primary">Add another Car</button>
       </div>
 
-      <div class="form-group mb-3">
-        <input type="text" [formControl]="searchText" placeholder="Search person" class="form-control mb-2" />
-        <div *ngIf="filtredPersons.length > 0" class="list-group">
-          <div *ngFor="let person of filtredPersons" class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-              <strong>{{ person.firstName }}</strong> 
-              <span *ngIf="person.maidenName">{{ person.lastName }} ({{ person.maidenName }})</span>
-              <span *ngIf="!person.maidenName">{{ person.lastName }}</span>
-              <small class="text-muted ms-2">DOB: {{ person.dateOfBirth | date: 'longDate' }}</small>
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-warning" (click)="addPerson(person)">Add</button>
+
+      <div class="form-group"> <!-- search person and add persons.id with form down -->
+        <label>Select Persons</label>
+        <input type="text" [formControl]="searchText" placeholder="Search person" class="input mb-2"  />
+        <div *ngFor="let person of filtredPersons">
+            <!-- Display company details here -->
+            <td>{{person.firstName}}</td>
+            <td >
+              <div *ngIf="person.maidenName !== undefined && person.maidenName !== '' && person.maidenName !== null">{{ person.lastName}}({{person.maidenName}})</div>
+              <div *ngIf="person.maidenName === undefined || person.maidenName === '' || person.maidenName === null">{{ person.lastName }}</div>
+            </td> 
+            <td>{{person.dateOfBirth}}</td>
+            
+            <td >
+              <button  type="button" class="btn btn-outline-warning" (click)="addPerson(person)" >Add</button>
+            </td> 
           </div>
-        </div>
-        <div *ngIf="filtredPersons.length === 0" class="text-muted mt-2">No persons found.</div>
-      </div>
+    </div>
     
+   <!-- <div formArrayName="eventsID">
+      <div *ngFor="let event of eventsIDForms.controls; let i=index" class="row">
+        <div class="col">
+          <label>Event {{i+1}}:</label>
+        </div>
+        <div class="col">
+          <input type="text" [formControlName]="i" class="form-control" >
+        </div>
+        <div class="col">
+          <button type="button" (click)="deleteEvent(i)" class="btn btn-outline-danger" >Delete Event {{i+1}}</button>
+        </div>
+      </div>
+      <button type="button" (click)="addEventsID()" class="btn btn-primary">Add another Event</button>
+      
+        </div> -->
+
 
     <div formArrayName="relatives"> <!-- get forms with person.id and you must add relationType -->
-
-        
-        <div *ngFor="let relative of relativesForm.controls; let i=index">
+       <div *ngFor="let relative of relativesForm.controls; let i=index">
           <div [formGroupName]="i" class="row">
             
            <!-- Display company details here -->
@@ -155,7 +175,7 @@
             
             <div class="col">
               <div>{{getFullNameById(relative.get('relativePersonId').value)}}</div>
-              <label for="relativeType">Relative Type:</label>
+              <label for="relativeType" >Relative Type:</label>
               <input type="text" id="relativeType" formControlName="relativeType" class="form-control imput mb-4">
               <input type="hidden" id="relativePersonId" formControlName="relativePersonId" value="person.id">
             </div>
@@ -163,7 +183,9 @@
               <br>
               <br>
               <button type="button" (click)="deleteRelative(i)" class="btn btn-outline-danger">Delete Relative {{i+1}}</button>
+            
             </div>
+            
           </div>
           </div>
       </div>
@@ -172,8 +194,6 @@
         <label for="comments" class="form-label">Comments:</label>
         <textarea type="text" id="comments" formControlName="comments" class="form-control"></textarea>
       </div>
-      <button type="submit" class="btn btn-outline-warning" >Submit</button>
+      <button type="submit" class="btn btn-outline-warning" >Create</button>
     </form>
-  
-  
     <div>{{myForm.value | json}}</div>
